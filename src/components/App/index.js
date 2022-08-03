@@ -58,7 +58,7 @@ const Main = styled.div`
   min-height: 600px;
 `;
 const EmptyHeader = styled.div`
-  height: 160px;
+  height: 155px;
   background: #000103;
 `;
 // try {
@@ -255,7 +255,7 @@ class App extends Component {
       if (
         this.props.general.token !== null &&
         this.props.account.token !== null &&
-        this.props.account.info.member_phone !== null && 
+        this.props.account.info.member_phone !== null &&
         this.props.account.info.member_email !== null &&
         this.props.account.info.bankInfoAuthentication !== undefined &&
         !this.props.account.info.bankInfoAuthentication &&

@@ -69,11 +69,13 @@ const InnerWrap = styled.div`
   font-size: 14px;
 `;
 const TopContainer = styled.div`
-  height: 50px;
-  border-bottom: 1px solid #2d3e45;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid ${({ theme }) => theme.pcHeaderRightMenuHover};
 `;
 const TimerContainer = styled.div`
-  padding-top: 15px;
   font-family: arial;
   float: left;
   @media (max-width: 950px) {
@@ -116,7 +118,6 @@ const CustomLink = styled(Link)`
 
 const RightContainer = styled.div`
   float: right;
-  padding-top: 5px;
 `;
 
 const BtnAppsAndCS = styled.div`
@@ -125,7 +126,7 @@ const BtnAppsAndCS = styled.div`
   align-items: center;
   word-wrap: break-word;
   height: 30px;
-  margin-top: 3px;
+
   float: right;
   &:hover {
     cursor: pointer;
@@ -136,8 +137,6 @@ const BtnAppsAndCS = styled.div`
 `;
 
 const BtnCS = styled(BtnAppsAndCS)`
-  margin-right: 8px;
-
   background-image: url(${({ theme }) => btnCSSwitcher()});
   color: ${({ theme }) => theme.pcHeaderText};
   &:hover {
@@ -212,7 +211,7 @@ const MouseOverBackground = styled.div`
   width: 100%;
 
   background-color: rgba(0, 0, 0, 0.75);
-  height: 160px;
+  height: 155px;
   position: absolute;
   bottom: 30px;
 `;
@@ -221,17 +220,14 @@ const RightMenuImg = styled.div`
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  ${(props) => `background-image:url(${props.img});`}
 
-  ${(props) =>
-    props.active
-      ? `
-
-  background-image:url(${props.hoverimg});
-  `
-      : `
-  
-  `}
+  mask: url(${({ img }) => {
+    return img;
+  }});
+  background: rgba(255, 255, 255, 0.8);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
 `;
 const MouseOverInner = styled.div`
   width: 1280px;
@@ -285,6 +281,7 @@ const RightMenuLI = styled.li`
   width: 130px;
   height: 95%;
   color: ${({ theme }) => theme.pcHeaderRightMenu};
+  cursor: pointer;
   border-bottom: solid 4px transparent;
   @media (max-width: 925px) {
     width: 100px;
@@ -296,17 +293,26 @@ const RightMenuLI = styled.li`
     width: 100px;
   }
   &:hover {
-    border-bottom: solid 4px ${({ theme }) => theme.pcHeaderRightMenuHover};
-    color: ${({ theme }) => theme.pcHeaderRightMenuHover};
-
-    cursor: pointer;
   }
   &:hover ${MouseOverContainer} {
     height: 190px;
   }
-  &:hover ${RightMenuImg} {
-    ${(props) => `background-image:url(${props.hoverimg});`}
+
+  :hover {
+    ${({ active, theme }) => {
+      return active
+        ? ``
+        : `
+        border-bottom: solid 4px ${theme.pcHeaderRightMenuHover};
+        color: ${theme.pcHeaderRightMenuHover};
+        ${RightMenuImg}{
+          background: ${theme.pcHeaderRightMenuHover};
+        }
+
+        `;
+    }}
   }
+
   &:hover ${GameImg} {
     animation-name: ${breatheAnimation};
   }
@@ -315,16 +321,16 @@ const RightMenuLI = styled.li`
   }
   background-repeat: no-repeat;
   background-position: 15% center;
-  ${(props) =>
-    props.active
+  ${({ active, theme }) =>
+    active
       ? `
-  border-bottom: solid 4px ${props.theme.pcHeaderRightMenuHover};
-  color: ${props.theme.pcHeaderRightMenuHover};
-
-
+      color: ${theme.primaryText};
+      background: ${theme.pcHeaderRightMenuHover};
+      ${RightMenuImg}{
+        background: #fff;
+      }
   `
       : `
-  
   `}
 `;
 
@@ -371,7 +377,7 @@ const Maintenance = styled.div`
 const GameFrame = styled.div`
   max-width: 255px;
   float: left;
-  min-height: 160px;
+  min-height: 155px;
   position: relative;
   transition: transform 0.6s;
   &:hover {
@@ -453,6 +459,11 @@ const styles = {
     transition: "height .3s",
   },
 };
+
+const LeftContent = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 class Header extends Component {
   constructor(props) {
@@ -627,39 +638,28 @@ class Header extends Component {
     this.props.history.push("/" + i18n.language + `/${path}`);
   };
 
-  rightMenuImageSwitcher = (item, isHover) => {
-    switch (config.theme.toLowerCase()) {
-      case "pb":
-        return item.img_PB;
-      default:
-        return isHover ? item.hoverImg : item.img;
-    }
-  };
-
-  RightMenuItem = (to, image, label, imageHover, subMenuImg, img_PB) => {
+  RightMenuItem = (
+    to,
+    image,
+    label,
+    imageHover,
+    subMenuImg,
+    img_PB,
+    active
+  ) => {
     const { classes } = this.props;
 
     return (
       <RightMenuLI
-        active={this.state.selected === `${to}`}
+        active={active}
         onClick={() => this.handleClickMenu(to)}
         onMouseOver={() => this.handleMenuMouseOver(to)}
         onMouseLeave={this.handleMenuMouseLeave}
-        hoverimg={this.rightMenuImageSwitcher(
-          { img: image, hoverImg: imageHover, img_PB: img_PB },
-          true
-        )}
+        img={image}
       >
         <RightMenuImg
-          img={this.rightMenuImageSwitcher(
-            { img: image, hoverImg: imageHover, img_PB: img_PB },
-            false
-          )}
-          hoverimg={this.rightMenuImageSwitcher(
-            { img: image, hoverImg: imageHover, img_PB: img_PB },
-            true
-          )}
-          active={this.state.selected === `${to}`}
+          img={image}
+          active={active}
           className={`${
             this.state.shouldShow === null
               ? classes.maxIcon
@@ -686,9 +686,9 @@ class Header extends Component {
                 onClick={(e) => e.stopPropagation()}
                 style={
                   this.state.shouldShow === null
-                    ? { top: "156px" }
+                    ? { top: "155px" }
                     : this.state.shouldShow
-                    ? { top: "156px" }
+                    ? { top: "155px" }
                     : { top: "114px" }
                 }
               >
@@ -893,29 +893,33 @@ class Header extends Component {
       slidesToScroll: 4,
     };
 
+    var currentPage = window.location.pathname.split("/").pop();
+
     return (
       <CustomAppBar hide={this.props.hide}>
         <InnerWrap>
           <TopContainer>
-            <TimerContainer>
-              <TimerSpan>GMT+8 {this.state.systemDateTime}</TimerSpan>
-            </TimerContainer>
-            {config.features.DisplayPhone && (
-              <TimerContainer style={{ marginLeft: "10px" }}>
-                <IconPhone img={IconPhonePNG}></IconPhone>
-                <PhoneNumberSpan>
-                  {this.props.general.brandsSupport &&
-                    this.props.general.brandsSupport.length >= 1 &&
-                    this.props.general.brandsSupport[0].phone}
-                </PhoneNumberSpan>
+            <LeftContent>
+              <TimerContainer>
+                <TimerSpan>GMT+8 {this.state.systemDateTime}</TimerSpan>
               </TimerContainer>
-            )}
-            <LinkContainer>
-              <LanguageChanger
-                language={this.props.general.brandLanguage}
-                changeLanguage={this.changeLanguage}
-              />
-            </LinkContainer>
+              {config.features.DisplayPhone && (
+                <TimerContainer style={{ marginLeft: "10px" }}>
+                  <IconPhone img={IconPhonePNG}></IconPhone>
+                  <PhoneNumberSpan>
+                    {this.props.general.brandsSupport &&
+                      this.props.general.brandsSupport.length >= 1 &&
+                      this.props.general.brandsSupport[0].phone}
+                  </PhoneNumberSpan>
+                </TimerContainer>
+              )}
+              <LinkContainer>
+                <LanguageChanger
+                  language={this.props.general.brandLanguage}
+                  changeLanguage={this.changeLanguage}
+                />
+              </LinkContainer>
+            </LeftContent>
             <RightContainer>
               <BtnCS onClick={this.props.onhandleShowCSClick}>
                 {i18n.t("common.cs")}
@@ -993,16 +997,15 @@ class Header extends Component {
                     return (
                       <RightMenuLI
                         key={index}
-                        active={this.state.selected === `${item.path}`}
+                        active={currentPage === `${item.path}`}
                         onClick={() => this.handleClickMenu(item.path)}
                         onMouseOver={() => this.handleMenuMouseOver(item.path)}
                         onMouseLeave={this.handleMenuMouseLeave}
-                        hoverimg={this.rightMenuImageSwitcher(item, true)}
+                        img={item.img}
                       >
                         <RightMenuImg
-                          img={this.rightMenuImageSwitcher(item, false)}
-                          hoverimg={this.rightMenuImageSwitcher(item, true)}
-                          active={this.state.selected === `${item.path}`}
+                          img={item.img}
+                          active={currentPage === `${item.path}`}
                           className={`${
                             this.state.shouldShow === null
                               ? classes.maxIcon
@@ -1026,9 +1029,9 @@ class Header extends Component {
                           onClick={(e) => e.stopPropagation()}
                           style={
                             this.state.shouldShow === null
-                              ? { top: "156px" }
+                              ? { top: "150px" }
                               : this.state.shouldShow
-                              ? { top: "156px" }
+                              ? { top: "150px" }
                               : { top: "114px" }
                           }
                         >
@@ -1201,7 +1204,8 @@ class Header extends Component {
                   i18n.t("common.promotion"),
                   TopMenuPromoHoverPNG,
                   null,
-                  TopMenuPromoPNG_PB
+                  TopMenuPromoPNG_PB,
+                  currentPage === "promotion"
                 )}
 
                 {this.RightMenuItem(
@@ -1210,7 +1214,8 @@ class Header extends Component {
                   "VIP",
                   TopMenuPromoHoverPNG,
                   null,
-                  TopMenuPromoPNG_PB
+                  TopMenuPromoPNG_PB,
+                  currentPage === "vip"
                 )}
               </RightMenuUL>
             </RightMenuContainer>

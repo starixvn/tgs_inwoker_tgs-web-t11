@@ -14,7 +14,6 @@ const ArrowDownImg = styled.img`
 `;
 
 const TheButtonWrapper = styled.div`
-  padding-top: 14px;
   cursor: pointer;
   user-select: none;
   display: flex;

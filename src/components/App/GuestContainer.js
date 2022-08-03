@@ -30,25 +30,23 @@ const Container = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  gap: 10px;
+  padding-right: 10px;
 `;
 const BtnLoginRegister = styled.div`
-  float: right;
   font-size: 17px;
+  padding: 5px 10px;
   text-align: center;
   color: ${({ theme }) => theme.pcHeaderText};
-
-  &:hover {
-    color: ${({ theme }) => theme.pcHeaderTextHover};
-    cursor: pointer;
-  }
+  cursor: pointer;
+  border-radius: 4px;
 `;
 const BtnRegister = styled(BtnLoginRegister)`
-  margin-left: 5px;
-  margin-right: 10px;
+  background: ${({ theme }) => theme.accent};
 `;
 
 const BtnLogin = styled(BtnLoginRegister)`
-  margin-right: 5px;
+  background: #393939;
 `;
 
 const BtnSpliter = styled.div`
@@ -56,11 +54,7 @@ const BtnSpliter = styled.div`
   margin-top: 8px;
   color: ${({ theme }) => theme.pcHeaderText};
 `;
-const BtnLoginRegisterLabel = styled.span`
-  text-align: center;
-  display: block;
-  margin-top: 7px;
-`;
+
 const StyledDialog = withStyles({
   root: {
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
@@ -545,24 +539,17 @@ class GuestContainer extends Component {
         (config.features.Register_CustomFlow_IDR && !bankInfoAuthentication)
       ) {
         if (config.features.NavigateToAddCard) {
-          if(isPhoneNull)
-          {
+          if (isPhoneNull) {
             this.props.history.push(
               "/" + i18n.language + "/account/profile/member_phone"
             );
-          }
-          else
-          {
-            if(isEmailNull)
-            {
+          } else {
+            if (isEmailNull) {
               this.props.history.push(
                 "/" + i18n.language + "/account/profile/member_email"
               );
-            }
-            else
-            {
-              if(!isRegisterCompleted)
-              {
+            } else {
+              if (!isRegisterCompleted) {
                 this.props.history.push(
                   "/" + i18n.language + "/account/withdrawal?do=addCard"
                 );
@@ -604,29 +591,12 @@ class GuestContainer extends Component {
     return (
       <Container>
         <BtnLogin onClick={() => this.handleClickOpenDialog("login")}>
-          <BtnLoginRegisterLabel>
-            {i18n.t("common.login")}
-          </BtnLoginRegisterLabel>
+          {i18n.t("common.login")}
         </BtnLogin>
-        <BtnSpliter> | </BtnSpliter>
-        <BtnRegister onClick={() => this.onhandleRegister()}>
-          <BtnLoginRegisterLabel>
-            {i18n.t("common.register")}
-          </BtnLoginRegisterLabel>
-        </BtnRegister>
 
-        {
-          //     config.features.SMSVerification && (
-          //       <React.Fragment>
-          //         <BtnSpliter> | </BtnSpliter>
-          //         <BtnRegister onClick={() => this.onhandleActivation()}>
-          //           <BtnLoginRegisterLabel>
-          //             {i18n.t("web.register.activation")}
-          //           </BtnLoginRegisterLabel>
-          //         </BtnRegister>
-          //       </React.Fragment>
-          //     )
-        }
+        <BtnRegister onClick={() => this.onhandleRegister()}>
+          {i18n.t("common.register")}
+        </BtnRegister>
 
         <StyledDialog
           open={this.state.openDialog || this.props.ui.showLogin}

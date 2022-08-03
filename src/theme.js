@@ -550,6 +550,46 @@ export const wapT10 = {
   popoverSubWalletText: "#000",
 };
 
+export const wapT11 = {
+  variant: "red",
+  loginBody: "#fff",
+  loginText: "#404040",
+  primary: "#0b1014",
+  primaryRgb: "11, 16, 20",
+  primaryText: "#fff",
+  primaryGradient: "#91030c",
+  primaryGradientRgb: "145, 3, 12",
+  primaryHightlight: "#fde73f",
+  secondary: "#404040",
+  secondaryText: "rgba(0,0,0,0.5)",
+  tertiary: "rgba(255, 255, 255, 1)",
+  tertiaryText: "rgba(255, 255, 255, 0.5)",
+  //new addition to compensate wap-t2
+  appbar: "linear-gradient(to top, #91030c, #c40511)",
+  buttonBackground: "#fff",
+  buttonText: "#fff",
+  buttonText2: "#000",
+  bottomnav: "#f5f5f5",
+  bottomNavAction: "#404040",
+  body: "#F0EFF5",
+  bodyBackground: "#F0EFF5",
+  supportBg: `url(${
+    process.env.PUBLIC_URL + `/assets/images/wapp/resource/T2/supportbg.png`
+  })
+  no-repeat center,  linear-gradient(180deg, rgb(5 30 74) 40%, rgba(12,21,37,1) 100%)`,
+  balance: "#fde73f",
+  pcHeaderText: "#fff",
+  pcHeaderTextHover: "#fde73f",
+  pcHeaderRightMenu: "#f6f6f6",
+  pcHeaderRightMenuHover: "#d52662",
+
+  popoverBackground: "rgba(255,255,255,0.95)",
+  popoverGameTypeText: "#c40511",
+  popoverSubWalletText: "#000",
+
+  accent: "#d52662",
+};
+
 export const themeList = {
   red: themeRed,
   blue: themeBlue,
@@ -566,4 +606,5 @@ export const themeList = {
   GMO: GMO,
   PB: PB,
   wapT10: wapT10,
+  wapT11: wapT11,
 };

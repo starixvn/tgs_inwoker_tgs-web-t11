@@ -18,7 +18,7 @@ import i18n from "../../../utils/i18n";
 import SecondSection from "./SecondSection";
 import ThirdSection from "./ThirdSection";
 import FourthSection from "./FourthSection";
-import BGJPG from "../../../assets/images/home/section/bg.jpg";
+import BGJPG from "../../../assets/images/home/section/bg.png";
 import Section1ChessPNG from "../../../assets/images/home/section/section1-chess.png";
 import Section1FishPNG from "../../../assets/images/home/section/section1-fish.png";
 import Section1LotteryPNG from "../../../assets/images/home/section/section1-lottery.png";
@@ -49,7 +49,7 @@ const MarqueeContainer = styled.div`
 `;
 const SectionContainer = styled.div`
   background: url(${BGJPG}) no-repeat;
-  background-position: center;
+  background-position: top;
   background-size: cover;
   width: 100%;
 `;
@@ -128,10 +128,10 @@ class Home extends Component {
   }
   componentDidUpdate(preProps) {
     var isInHomePage =
-    this.props.ui.mains &&
-    this.props.ui.mains !== preProps.ui.mains &&
-    this.props.ui.mains.length > 0;
-    
+      this.props.ui.mains &&
+      this.props.ui.mains !== preProps.ui.mains &&
+      this.props.ui.mains.length > 0;
+
     if (config.features.PopupAnnouncement) {
       if (isInHomePage) {
         this.setState({
