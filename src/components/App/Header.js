@@ -117,7 +117,7 @@ const CustomLink = styled(Link)`
 `;
 
 const RightContainer = styled.div`
-  float: right;
+  display: flex;
 `;
 
 const BtnAppsAndCS = styled.div`
@@ -145,6 +145,38 @@ const BtnCS = styled(BtnAppsAndCS)`
   }
   padding-left: 32px;
   line-height: 10px;
+`;
+
+const CSIcon = styled.div`
+  height: 18px;
+  width: 18px;
+  mask: url(${process.env.PUBLIC_URL + "/assets/images/iconpack/cs.png"});
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  background: ${({ theme }) => theme.pcHeaderText};
+  margin-right: 4px;
+`;
+
+const NewButtonCs = styled.div`
+  font-size: 15px;
+  padding: 2.5px 10px;
+  text-align: center;
+  color: ${({ theme }) => theme.pcHeaderText};
+  cursor: pointer;
+  border-radius: 4px;
+  border: solid 1px ${({ theme }) => theme.pcHeaderText};
+  display: flex;
+  align-items: center;
+
+  :hover {
+    color: ${({ theme }) => theme.accent};
+    border: solid 1px ${({ theme }) => theme.accent};
+
+    ${CSIcon} {
+      background: ${({ theme }) => theme.accent};
+    }
+  }
 `;
 
 const BottomContainer = styled.div`
@@ -921,9 +953,6 @@ class Header extends Component {
               </LinkContainer>
             </LeftContent>
             <RightContainer>
-              <BtnCS onClick={this.props.onhandleShowCSClick}>
-                {i18n.t("common.cs")}
-              </BtnCS>
               {(() => {
                 if (!this.props.general.isMaintenance) {
                   if (
@@ -953,7 +982,10 @@ class Header extends Component {
                     );
                   }
                 }
-              })()}{" "}
+              })()}
+              <NewButtonCs onClick={this.props.onhandleShowCSClick}>
+                <CSIcon /> {i18n.t("common.cs")}
+              </NewButtonCs>
             </RightContainer>
           </TopContainer>
           <BottomContainer>

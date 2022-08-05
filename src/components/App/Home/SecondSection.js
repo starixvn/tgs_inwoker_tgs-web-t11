@@ -7,7 +7,7 @@ import LeftModelPNG from "../../../assets/images/home/section/left-model.png";
 import SliderPNG from "../../../assets/images/home/section/game-slider.png";
 import SliderSelectedPNG from "../../../assets/images/home/section/game-slider-selected.png";
 import Common from "../../../utils/Common";
-import {GameTypeEnum} from "../../../api-services/utils/Enum";
+import { GameTypeEnum } from "../../../api-services/utils/Enum";
 import ScrollAnimation from "react-animate-on-scroll";
 const GameSelectorWithSlider = styled.div`
   height: 606px;

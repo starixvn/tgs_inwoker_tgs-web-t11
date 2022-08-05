@@ -34,8 +34,8 @@ const Container = styled.div`
   padding-right: 10px;
 `;
 const BtnLoginRegister = styled.div`
-  font-size: 17px;
-  padding: 5px 10px;
+  font-size: 15px;
+  padding: 4.5px 10px;
   text-align: center;
   color: ${({ theme }) => theme.pcHeaderText};
   cursor: pointer;
