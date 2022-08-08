@@ -323,6 +323,27 @@ function Activation(props) {
   const [securityKey, setSecurityKey] = React.useState("");
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
+  function smsVerification(securityKey, code) {
+    AccountService.VerifyActivation(securityKey, code).then(
+      async (response) => {
+        if (response.IsSuccess) {
+          props.enqueueSnackbar(i18n.t("common.msgTokenVerified"), {
+            variant: "success",
+          });
+          props.doLogin(username, password);
+
+          props.history.push(
+            "/" + i18n.language + "/registersuccess/" + username
+          );
+        } else {
+          props.enqueueSnackbar(response.info, {
+            variant: "warning",
+          });
+        }
+      }
+    );
+  }
+
   const handleActivationClick = async () => {
     var expr = /^[a-zA-Z0-9]{6,16}$/;
     if (!expr.test(username)) {
@@ -350,32 +371,36 @@ function Activation(props) {
       );
       return;
     }
-    expr = /^[a-zA-Z0-9]{6}$/;
-    if (!expr.test(code)) {
-      props.enqueueSnackbar(i18n.t("common.msgEnterCode"), {
-        variant: "warning",
-      });
-      return;
+
+    if (!config.features.SkipSMSVerification) {
+      expr = /^[a-zA-Z0-9]{6}$/;
+      if (!expr.test(code)) {
+        props.enqueueSnackbar(i18n.t("common.msgEnterCode"), {
+          variant: "warning",
+        });
+        return;
+      }
     }
 
-    AccountService.VerifyActivation(securityKey, code).then(
-      async (response) => {
-        if (response.IsSuccess) {
-          props.enqueueSnackbar(i18n.t("common.msgTokenVerified"), {
-            variant: "success",
-          });
-          props.doLogin(username, password);
-
-          props.history.push(
-            "/" + i18n.language + "/registersuccess/" + username
-          );
-        } else {
-          props.enqueueSnackbar(response.info, {
-            variant: "warning",
-          });
-        }
+    if (config.features.SkipSMSVerification) {
+      var result = await AccountService.Login(username, password);
+      if (result.IsSuccess) {
+        props.getAccountInfo();
+        AccountService.Activation("", "", areacode, phone).then(
+          async (response) => {
+            if (response.IsSuccess) {
+              smsVerification(response.data, "123456");
+            } else {
+              props.enqueueSnackbar(response.info, {
+                variant: "warning",
+              });
+            }
+          }
+        );
       }
-    );
+    } else {
+      smsVerification(securityKey, code);
+    }
   };
   const handleGetCodeClick = async () => {
     if (countdown <= 0) {
@@ -435,14 +460,6 @@ function Activation(props) {
         setCountdown(countdown - 1);
       }, 1000);
   }, [countdown]);
-
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
 
   return (
     <Container>
@@ -540,30 +557,37 @@ function Activation(props) {
             ),
           }}
         />
-        <div class="clear"></div>
-        <CustomText
-          placeholder={i18n.t("common.msgEnterCode")}
-          adornment={IconInputVerifyCodePNG}
-          onChange={(e) => {
-            setCode(e.target.value);
-          }}
-          variant="outlined"
-          autoComplete="off"
-          value={code}
-          type={"text"}
-          style={{
-            width: "200px",
-            height: "51px",
-            marginTop: "0",
-          }}
-        ></CustomText>
-        <StyleButton onClick={handleGetCodeClick} disable={countdown > 0}>
-          <ButtonLabel>
-            {countdown <= 0
-              ? i18n.t("common.msgSendToken")
-              : i18n.t("common.btnTokenResendLabel") + "(" + countdown + "s)"}
-          </ButtonLabel>
-        </StyleButton>
+        {!config.features.SkipSMSVerification && (
+          <>
+            <div class="clear"></div>
+            <CustomText
+              placeholder={i18n.t("common.msgEnterCode")}
+              adornment={IconInputVerifyCodePNG}
+              onChange={(e) => {
+                setCode(e.target.value);
+              }}
+              variant="outlined"
+              autoComplete="off"
+              value={code}
+              type={"text"}
+              style={{
+                width: "200px",
+                height: "51px",
+                marginTop: "0",
+              }}
+            ></CustomText>
+            <StyleButton onClick={handleGetCodeClick} disable={countdown > 0}>
+              <ButtonLabel>
+                {countdown <= 0
+                  ? i18n.t("common.msgSendToken")
+                  : i18n.t("common.btnTokenResendLabel") +
+                    "(" +
+                    countdown +
+                    "s)"}
+              </ButtonLabel>
+            </StyleButton>
+          </>
+        )}
         <ButtonLogin onClick={handleActivationClick}>
           <ButtonLoginLabel>{i18n.t("common.submit")}</ButtonLoginLabel>
         </ButtonLogin>
