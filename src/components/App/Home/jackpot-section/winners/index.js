@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Common from "../../../../../utils/Common";
 
@@ -42,16 +42,116 @@ const TableData = styled(TableLayout)`
   border-top: solid 1.25px #fff;
   font-size: 14px;
   color: #fff;
+
+  div {
+    white-space: nowrap;
+  }
 `;
-const Winners = React.memo(({ title, data }) => {
-  var fakeData = [
-    { player: "player1", game: "game1", wins: "1111" },
-    { player: "player2", game: "game2", wins: "2222" },
-    { player: "player3", game: "game3", wins: "3333" },
-    { player: "player4", game: "game4", wins: "4444" },
-    { player: "player5", game: "game5", wins: "5555" },
+const Winners = React.memo(({ title }) => {
+  const playerName = [
+    "kin9123***",
+    "morisp***",
+    "erikfan1***",
+    "ritam712***",
+    "perriw00***",
+    "victorb63***",
+    "heryam20***",
+    "trwass7***",
+    "aajac***",
+    "winne19***",
+    "k125923***",
+    "garysin***",
+    "lksj9482***",
+    "kwashd7***",
+    "lwda***",
+    "gwsk12***",
+    "946301***",
+    "abc7***",
+    "mrhr112***",
+    "t2943***",
+    "smi***",
+    "luckybo***",
+    "873251***",
+    "hh3888***",
+    "ttwisn***",
+    "vipvi***",
+    "cha19***",
+    "113847***",
+    "tami36***",
+    "zzz90***",
+    "mus12***",
+    "c099***",
+    "juicec***",
+    "peta5***",
+    "onk***",
+    "monn0***",
+    "pulli52***",
+    "matkal***",
+    "siumi***",
+    "god6***",
+    "sk***",
+    "asdje2***",
+    "ron707***",
+    "5013d***",
+    "bus01***",
+    "fun011***",
+    "fivivv***",
+    "oopw3***",
+    "927364***",
   ];
-  var displayData = data ? data : fakeData;
+
+  const gameName = [
+    "Super Ace",
+    "Golden Empire",
+    "Fortune Gems",
+    "Masquerade",
+    "10001 Nights",
+    "Aztec Spins",
+    "Mega Fishing",
+    "Jackpot Fishing",
+    "Dinosaur Tycoon",
+    "TrumpCard",
+    "MayaGoldCrazy",
+    "TreasureBowl",
+  ];
+
+  function randomize(arr) {
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    const item = arr[randomIndex];
+    return item;
+  }
+
+  function randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  const FakeDataDisplayer = () => {
+    var min = 1000;
+    var max = 20000;
+    const [name, setName] = useState(randomize(playerName));
+    const [game, setGame] = useState(randomize(gameName));
+    const [amount, setAmount] = useState(
+      Common.addComma(randomNumber(min, max))
+    );
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setName(randomize(playerName));
+        setGame(randomize(gameName));
+        setAmount(Common.addComma(randomNumber(min, max)));
+      }, 10000);
+      return () => {
+        clearInterval(interval);
+      };
+    }, []);
+    return (
+      <TableData>
+        <div>{name}</div>
+        <div>{game}</div>
+        <div>{amount}</div>
+      </TableData>
+    );
+  };
   return (
     <ContentHolder>
       <Title>{title}</Title>
@@ -59,15 +159,11 @@ const Winners = React.memo(({ title, data }) => {
         <TableHeader>
           <div>Player</div> <div>Game</div> <div>Wins</div>
         </TableHeader>
-        {displayData.map((data, index) => {
-          return (
-            <TableData key={index}>
-              <div>{data.player}</div>
-              <div>{data.game}</div>
-              <div>{Common.addComma(data.wins)}</div>
-            </TableData>
-          );
-        })}
+        <FakeDataDisplayer />
+        <FakeDataDisplayer />
+        <FakeDataDisplayer />
+        <FakeDataDisplayer />
+        <FakeDataDisplayer />
       </WinnerList>
     </ContentHolder>
   );
