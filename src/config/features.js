@@ -105,6 +105,7 @@ const featureList = {
     Profile_DisplayEditNameButton: true,
 
     Wap_DisplayButton: false,
+    MergeEVORTNT: true,
   },
 };
 export default featureList;
