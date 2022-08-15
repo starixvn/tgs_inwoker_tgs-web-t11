@@ -90,11 +90,8 @@ const ButtonLogin = styled.div`
   border-radius: 6px;
 
   border: solid 1px #ffffff;
-  background-image: linear-gradient(
-    to top,
-    ${({ theme }) => theme.primaryGradient},
-    ${({ theme }) => theme.primary}
-  );
+
+  background:   ${({ theme }) => theme.accent}
 
   &:hover {
     cursor: pointer;

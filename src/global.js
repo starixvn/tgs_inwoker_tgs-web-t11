@@ -56,6 +56,22 @@ export const GlobalStyles = createGlobalStyle`
   .headerSubmenu .slick-next::before {
     color: ${({ theme }) => theme.primary};
   }
+
+      
+  .headerSubmenu .slick-prev::before,
+  .headerSubmenu .slick-next::before {
+    content: ur(${
+      process.env.PUBLIC_URL + "/assets/images/pcHomePage/left.png"
+    });
+  }
+  
+  .headerSubmenu .slick-prev::before,
+  .headerSubmenu .slick-next::before {
+    color: ${({ theme }) => theme.primary};
+  }
+  
+
+
   
 
 

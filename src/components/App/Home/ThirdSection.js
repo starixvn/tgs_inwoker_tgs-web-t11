@@ -5,18 +5,21 @@ import styled from "styled-components";
 import StartGamePNG from "../../../assets/images/start-game.png";
 import StartGameHoverPNG from "../../../assets/images/start-game-hover.png";
 
-import {GameEnum,GameTypeEnum} from "../../../api-services/utils/Enum";
+import { GameEnum, GameTypeEnum } from "../../../api-services/utils/Enum";
 import i18n from "../../../utils/i18n";
 
 import ScrollAnimation from "react-animate-on-scroll";
+
 const Background = styled.div`
   height: 580px;
-
+border-top: solid 7px ${({ theme }) => theme.accent}
   z-index: 3;
-  background: url(${process.env.PUBLIC_URL +
+  background: url(${
+    process.env.PUBLIC_URL +
     "/assets/images/" +
     i18n.language +
-    `/ky-hotgame-bg.jpg`})
+    `/ky-hotgame-bg.jpg`
+  })
     center no-repeat;
   padding-top: 40px;
 `;
@@ -30,16 +33,18 @@ const Container = styled(Grid)`
 const AGContentStartGame = styled.div`
   position: absolute;
   width: 167px;
-  height: 41px;
+  height: 41px;  cursor: pointer;
 
-  background: url(${StartGamePNG}) no-repeat;
-  &:hover {
-    cursor: pointer;
-    background: url(${StartGameHoverPNG}) no-repeat;
+  :hoveR{
+   box-shadow:    inset 0 0 10px #fff;
   }
+
+  background: ${({ theme }) => theme.accent}
+ border: solid 1px #fff;
   color: #fff;
   font-size: 17px;
-  padding: 0px 50px 0px 5px;
+  padding: 0px 25px;
+  border-radius: 8px;
   text-align: center;
   line-height: 40px;
   top: 371px;

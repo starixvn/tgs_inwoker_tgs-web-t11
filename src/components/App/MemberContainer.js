@@ -41,35 +41,30 @@ export const rotateKeyFrame = keyframes`
 `;
 const Container = styled.div`
   font-size: 14px;
-  float: right;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-right: 5px;
 `;
 const BtnStyle1 = styled.div`
-  width: 68px;
-  height: 35px;
   border-radius: 4px;
 
-  float: right;
-  margin-right: 10px;
+  font-size: 15px;
+  padding: 4.5px 10px;
   text-align: center;
-  line-height: 220%;
-  border: solid 1px #ffffff;
+  color: ${({ theme }) => theme.pcHeaderText};
+  cursor: pointer;
+  border-radius: 4px;
+
+  text-align: center;
+
   color: #fff;
-  background-image: linear-gradient(
-    to top,
-    ${({ theme }) => theme.primaryGradient},
-    ${({ theme }) => theme.primary}
-  );
-  &:hover {
-    border: solid 1px #fde73f;
-    color: #fde73f;
-    cursor: pointer;
-  }
+  background: ${({ theme }) => theme.accent};
 `;
 const BtnLogout = styled.div`
   color: ${({ theme }) => theme.pcHeaderText};
   text-align: right;
-  padding: 10px 0px 0 0;
-  float: right;
+
   &:hover {
     cursor: pointer;
     color: ${({ theme }) => theme.pcHeaderTextHover};
@@ -82,8 +77,7 @@ const BtnDeposit = styled(BtnStyle1)``;
 const BalanceContainer = styled.div`
   color: ${({ theme }) => theme.pcHeaderText};
   text-align: right;
-  padding: 10px 10px 0 0;
-  float: right;
+
   &:hover {
     cursor: pointer;
   }
@@ -94,7 +88,6 @@ const RefreshBalance = styled.div`
 
   width: 16px;
   height: 16px;
-  float: right;
 
   &:hover {
     cursor: pointer;
@@ -121,34 +114,31 @@ const MemberUserName = styled.span`
 const Spliter = styled.div`
   width: 2px;
   height: 16px;
-  margin: 12px 10px 0px 10px;
-  float: right;
+  margin: 0 5px;
   background-color: rgba(255, 255, 255, 0.2);
 `;
 const InboxContainer = styled(BalanceContainer)`
   color: ${({ theme }) => theme.pcHeaderText};
   text-align: right;
-  padding: 10px 0px 0 0;
-  &:hover {
-    cursor: pointer;
-  }
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 5px;
 `;
 const InboxIconImg = styled.img`
   display: inline-block;
-  float: right;
+
   margin-top: 2px;
 `;
 const InboxCountLabel = styled.span`
-  margin-left: 6px;
   color: ${({ theme }) => theme.pcHeaderTextHover};
   display: inline-block;
-  float: right;
 `;
 const WelcomeContainer = styled(BalanceContainer)`
   color: ${({ theme }) => theme.pcHeaderText};
-  float: right;
+
   margin-right: 0px;
-  padding: 10px 0 0 0;
+
   max-width: 300px;
 `;
 const CustomLink = styled(Link)`
@@ -251,14 +241,28 @@ const MemberContainer = (props) => {
 
   return (
     <Container>
-      {props.game.containTransferWallet && !config.features.NewTransferUI && (
-        <BtnTransfer onClick={props.onhandleTransfer}>
-          {i18n.t("web.header.transfer")}
-        </BtnTransfer>
-      )}
-      <BtnDeposit onClick={props.onhandleDeposit}>
-        {i18n.t("web.header.deposit")}
-      </BtnDeposit>
+      <WelcomeContainer>
+        <CustomLink to={"/" + i18n.language + "/account/profile"}>
+          {i18n.t("web.header.welcomBack")}{" "}
+          <MemberUserName>
+            {props.account.info.member_username}(
+            {config.features.CustomVIP
+              ? vipSwitcher(props.account.info.member_level_id)
+              : "VIP" + props.account.info.member_level_id}
+            )
+          </MemberUserName>
+        </CustomLink>
+      </WelcomeContainer>
+      <Spliter></Spliter>
+      <BtnLogout onClick={props.onhandleLogout}>
+        {i18n.t("web.header.logout")}
+      </BtnLogout>
+      <Spliter></Spliter>
+      <InboxContainer onClick={props.onhandleInboxClick}>
+        <InboxCountLabel>{props.account.info.message_num}</InboxCountLabel>
+        <InboxIconImg src={inboxIconSwitcher()}></InboxIconImg>
+      </InboxContainer>
+      <Spliter></Spliter>
       <BalanceContainer style={{ display: "flex" }}>
         <span>{i18n.t("web.header.mainAccount")}:</span>
         <BalanceAmountLabel
@@ -268,7 +272,6 @@ const MemberContainer = (props) => {
         >
           {Common.formatNumberWithThousand(totalBalance)}
         </BalanceAmountLabel>
-
         <CustomPopover
           open={open}
           anchorEl={anchorEl}
@@ -337,27 +340,14 @@ const MemberContainer = (props) => {
         </RefreshBalance>
       </BalanceContainer>
       <Spliter></Spliter>
-      <InboxContainer onClick={props.onhandleInboxClick}>
-        <InboxCountLabel>{props.account.info.message_num}</InboxCountLabel>
-        <InboxIconImg src={inboxIconSwitcher()}></InboxIconImg>
-      </InboxContainer>
-      <Spliter></Spliter>
-      <BtnLogout onClick={props.onhandleLogout}>
-        {i18n.t("web.header.logout")}
-      </BtnLogout>
-      <Spliter></Spliter>
-      <WelcomeContainer>
-        <CustomLink to={"/" + i18n.language + "/account/profile"}>
-          {i18n.t("web.header.welcomBack")}{" "}
-          <MemberUserName>
-            {props.account.info.member_username}(
-            {config.features.CustomVIP
-              ? vipSwitcher(props.account.info.member_level_id)
-              : "VIP" + props.account.info.member_level_id}
-            )
-          </MemberUserName>
-        </CustomLink>
-      </WelcomeContainer>
+      {props.game.containTransferWallet && !config.features.NewTransferUI && (
+        <BtnTransfer onClick={props.onhandleTransfer}>
+          {i18n.t("web.header.transfer")}
+        </BtnTransfer>
+      )}
+      <BtnDeposit onClick={props.onhandleDeposit}>
+        {i18n.t("web.header.deposit")}
+      </BtnDeposit>
     </Container>
   );
 };

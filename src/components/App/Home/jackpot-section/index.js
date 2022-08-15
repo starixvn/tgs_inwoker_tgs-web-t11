@@ -1,6 +1,7 @@
 import React from "react";
 import { Textfit } from "react-textfit";
 import styled from "styled-components";
+import { GameTypeEnum } from "../../../../api-services/utils/Enum";
 import Common from "../../../../utils/Common";
 import SlotGenerator from "../slot-generator";
 import Winners from "./winners";
@@ -82,9 +83,11 @@ const TextContent = styled.div`
 const SlotContainer = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
-const JackpotSection = () => {
+const JackpotSection = ({ showLogin, token }) => {
   const Numbers = React.memo(({ amount }) => {
     var display = amount && amount.split("");
     return display.map((element) => {
@@ -95,6 +98,11 @@ const JackpotSection = () => {
       );
     });
   });
+
+  const commonprops = {
+    showLogin: showLogin,
+    token: token,
+  };
 
   return (
     <div>
@@ -112,7 +120,25 @@ const JackpotSection = () => {
         </JackpotContentWorkingSpace>
       </JackpotHolder>
       <SlotContainer>
-        <SlotGenerator title={"JILI SLOTS"} />
+        <SlotGenerator
+          title={"JILI SLOTS"}
+          platform="JILITF"
+          type={GameTypeEnum.SLOT}
+          commonprops={commonprops}
+        />
+        <SlotGenerator
+          title={"REAL TIGER SLOTS"}
+          platform="RTTF"
+          type={GameTypeEnum.SLOT}
+          commonprops={commonprops}
+        />
+
+        <SlotGenerator
+          title={"JILI FISHING"}
+          platform="JILITF"
+          type={GameTypeEnum.FISH}
+          commonprops={commonprops}
+        />
       </SlotContainer>
     </div>
   );

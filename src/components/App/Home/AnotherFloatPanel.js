@@ -25,33 +25,34 @@ import { AppHistory } from "../../../history/History";
 import config from "../../../config/config";
 
 const Icon = styled.div`
-  height: 70px;
-  width: 50px;
+  height: 60px;
+  width: 35px;
 
   background-color: ${({ theme, active }) => {
-    return active ? "white" : theme.primary;
+    return active ? theme.primary : "#fff";
   }};
   transition: transform 0.5s;
   mask: url(${({ active, src, src2 }) => (active ? src2 : src)}) no-repeat
     center / contain;
-  -webkit-mask: url(${({ active, src, src2 }) => (active ? src2 : src)})
-    no-repeat center / contain;
+
   background-size: 100%;
-  transform: translateY(${({ active }) => (active ? "-5px" : "3px")});
+  transform: translateY(${({ active }) => (active ? "-5px" : "0px")});
 `;
 
 const Text = styled.div`
   font-size: 8px;
   text-align: center;
+
   width: 50px;
+  display: none;
   pointer-events: none;
   opacity: ${({ active }) => (active ? "1" : "0")};
   transition: opacity 200ms;
   transform: translateY(-15px);
+  color: ${({ theme }) => theme.accent};
 `;
 
 const RotateBack = styled.div`
-  transform: rotate(-45deg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,13 +65,11 @@ const Container = styled.div`
   ${({ customPosition }) => {
     return customPosition ? `bottom: 7%;` : `  top: 50%;`;
   }}
-
   display: flex;
   flex-direction: column;
   align-items: center;
   transform: translateY(-50%);
   overflow: visible;
-  color: white;
   border-radius: 8px;
 
   :hover {
@@ -84,40 +83,43 @@ const SidePanel = styled.div`
 
   width: 75px;
   height: 75px;
-  transform: rotate(45deg);
+
   overflow: visible;
 
   border-width: 2px;
-  border-color: ${({ theme }) => theme.primary};
+  border-color: #fff;
   border-style: solid;
-  border-radius: 10px;
+  border-radius: 1000px;
 
   ${({ active, theme }) => {
     return active
       ? `  
-       background-color:  ${theme.primary};`
+       background-color:  #fff;`
       : `  
-      background-color: #ffff;`;
+      background-color: ${theme.accent};`;
   }}
 
   &:hover {
-    background-color: ${({ theme }) => theme.primary};
+    background-color: #fff;
     cursor: pointer;
     border-color: transparent;
+    border-color: ${({ theme }) => theme.accent};
 
     ${Icon} {
-      background: url(${({ src2 }) => src2}) no-repeat center;
+      background: ${({ theme }) => theme.accent};
       background-size: 100%;
       transform: translateY(-5px);
     }
     ${Text} {
       opacity: 1;
+      display: block;
+      color: ${({ theme }) => theme.accent};
       transition: opacity 200ms;
       transition-delay: 100ms;
     }
   }
   box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
-  margin: 30px 10px 5px auto;
+  margin: 10px 10px 5px auto;
 `;
 
 const CustomModal = styled(Dialog)`
@@ -148,7 +150,7 @@ const DialogTitle = styled.div`
 `;
 
 const DialogTitle2 = styled(DialogTitle)`
-  background: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.accent};
   color: white;
 `;
 
@@ -163,7 +165,7 @@ const CloseButton = styled.div`
 `;
 
 const CSSection = styled.div`
-  background: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.accent};
   display: flex;
   padding: 30px;
   align-items: center;
@@ -242,44 +244,6 @@ const Icons = styled.img`
 const QRCodeImage = styled.img`
   height: 150px;
   width: 150px;
-`;
-
-const DownloadButton = styled.div`
-cursor: pointer;
- margin-top: 30px;
- margin-right: 10px;
-  border: solid 3px ${({ theme }) => theme.primary};
-  background: #fff;
-  border-radius: 10px
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 75px;
-  height: 75px;
-  transform: rotate(45deg);
-  overflow: visible;
-
-  border-width: 2px;
-  border-color: ${({ theme }) => theme.primary};
-  border-style: solid;
-  border-radius: 10px;
-`;
-
-const DownloadContent = styled.div`
-  transform: rotate(-45deg);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const DownloadText = styled.div`
-  color: ${({ theme }) => theme.primary};
-  font-size: 12px;
-  text-align: center;
-  width: 50px;
-  margin-top: -10px;
-  font-weight: bold;
 `;
 
 const AnotherFloatPanel = (props) => {
@@ -382,45 +346,28 @@ const AnotherFloatPanel = (props) => {
           </RotateBack>
         </SidePanel>
 
-        {config.features.HaveDownloadFeature &&
-          !config.features.FloatPanel_NoDownloadAnimation && (
-            <SidePanel
-              active={supportModal}
-              onClick={() => {
-                AppHistory.replace("/" + i18n.language + "/download");
-              }}
-              src2={PanelDownloadPNG2}
-            >
-              <RotateBack active={supportModal}>
-                <Icon
-                  src={PanelDownloadPNG}
-                  src2={PanelDownloadPNG2}
-                  active={supportModal}
-                  alt="user-cs"
-                />
-                <Text active={supportModal}>
-                  {config.features.FloatPanel_CustomTranslation
-                    ? i18n.t("mess888.panel.download")
-                    : i18n.t("download.title")}{" "}
-                </Text>
-              </RotateBack>
-            </SidePanel>
-          )}
-        {config.features.FloatPanel_NoDownloadAnimation && (
-          <DownloadButton
+        {config.features.HaveDownloadFeature && (
+          <SidePanel
+            active={supportModal}
             onClick={() => {
               AppHistory.replace("/" + i18n.language + "/download");
             }}
+            src2={PanelDownloadPNG2}
           >
-            <DownloadContent>
+            <RotateBack active={supportModal}>
               <Icon
                 src={PanelDownloadPNG}
+                src2={PanelDownloadPNG2}
+                active={supportModal}
                 alt="user-cs"
-                style={{ marginTop: -15 }}
               />
-              <DownloadText>APP</DownloadText>
-            </DownloadContent>
-          </DownloadButton>
+              <Text active={supportModal}>
+                {config.features.FloatPanel_CustomTranslation
+                  ? i18n.t("mess888.panel.download")
+                  : i18n.t("download.title")}{" "}
+              </Text>
+            </RotateBack>
+          </SidePanel>
         )}
       </Container>
 

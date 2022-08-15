@@ -14,18 +14,14 @@ const Container = styled.div`
   display: ${({ hide }) => {
     return hide ? "none" : "block";
   }}
-  background-image: linear-gradient(
-    to top,
-    ${({ theme }) => theme.primaryGradient},
-    ${({ theme }) => theme.primary}
-  );
+ background: #212121;
 `;
 
 const MiddleContainer = styled.div`
-  padding: 20px 0;
+  padding: 40px 0;
   width: 100%;
-  border-bottom: solid 1px ${(props) => props.theme.primaryGradient};
-  border-top: solid 1px ${(props) => props.theme.primaryGradient};
+
+  border-top: solid 4px ${(props) => props.theme.accent};
 `;
 const MiddleInnerWrap = styled.div`
   display: block;

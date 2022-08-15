@@ -239,7 +239,10 @@ class Home extends Component {
           </MarqueeContainer>
         </SliderContainer>
         <SectionContainer>
-          <JackpotSection />
+          <JackpotSection
+            showLogin={this.props.showLogin}
+            token={this.props.token}
+          />
         </SectionContainer>
         {this.props.game.providerList.filter((e) => {
           return e.abbreviation === "KY";
