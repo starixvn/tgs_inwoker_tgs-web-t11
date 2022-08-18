@@ -13,7 +13,7 @@ pipeline {
 		Brand = "T11"
 		Theme = "wapT11" 
 		Template = "11"
-		Currency = "PHP"
+		DefaultCurrency = "PHP"
 		DefaultLanguage = "en-US"
     }
 	
@@ -59,7 +59,6 @@ pipeline {
                     }
                     TAG = env.kube_ns + '-' + TAG
                     message += "\nBranch: ${env.GIT_BRANCH}" 
-                    message += "\nImage: ${Image}"
                     message += "\nTag: ${TAG}"
                     message += "\nEnv: $env.kube_ns"
                     env.commit_url = "${env.GIT_URL}".replace(".git","/-/commit/") + "${env.GIT_COMMIT}"
@@ -82,12 +81,12 @@ pipeline {
         }	
         stage('Docker Build') {   
             steps {	  			    
-                sh "docker build -t ${Registry}${Image}:${TAG} ."
+                sh "docker build -t ${Registry}${LobbyName}:${TAG} ."
             }
         }			
         stage('Docker Push') {   
             steps {	  
-                sh "docker push ${Registry}${Image}:${TAG}"
+                sh "docker push ${Registry}${LobbyName}:${TAG}"
             }
         }
 		
@@ -100,7 +99,7 @@ pipeline {
 			
 						message += "name: ${LobbyName} \n" 
 						message += "language: ${DefaultLanguage} \n"
-						message += "currency: ${Currency} \n"
+						message += "currency: ${DefaultCurrency} \n"
 						message += "env: $env.kube_ns \n" 
 					   
 					
@@ -113,7 +112,7 @@ pipeline {
 								--set brand=${Brand}  \
 								--set defaultLanguage=${DefaultLanguage}  \
 								--set apiKey=${ApiKey}  \
-								--set currency=${currency}  \
+								--set currency=${DefaultCurrency}  \
 								--set image.repository=${Registry}${env.LobbyName} \
 								--set brandToken=${tgs_gpi_brand_token} \
 								--set image.tag=${TAG} \
@@ -130,7 +129,7 @@ pipeline {
 								--set brand=${Brand}  \
 								--set defaultLanguage=${defaultLanguage}  \
 								--set apiKey=${ApiKey}   \
-								--set currency=${Currency}  \
+								--set currency=${DefaultCurrency}  \
 								--set image.repository=${Registry}${LobbyName} \
 								--set brandToken=${tgs_gpi_brand_token} \
 								--set image.tag=${TAG} \
