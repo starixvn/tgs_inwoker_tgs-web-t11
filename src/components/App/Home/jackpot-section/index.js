@@ -1,5 +1,5 @@
-import React from "react";
-import { Textfit } from "react-textfit";
+import React, { useEffect, useState } from "react";
+
 import styled from "styled-components";
 import { GameTypeEnum } from "../../../../api-services/utils/Enum";
 import Common from "../../../../utils/Common";
@@ -90,10 +90,13 @@ const SlotContainer = styled.div`
 const JackpotSection = ({ showLogin, token }) => {
   const Numbers = React.memo(({ amount }) => {
     var display = amount && amount.split("");
+
     return display.map((element) => {
       return (
         <TextContent>
-          <TextHolder hide={element === ","}>{element}</TextHolder>
+          <TextHolder hide={element === "," || element === "."}>
+            {element}
+          </TextHolder>
         </TextContent>
       );
     });
@@ -104,12 +107,28 @@ const JackpotSection = ({ showLogin, token }) => {
     token: token,
   };
 
+  const generateJackpotAmount = ({ min, max }) => {
+    let date = new Date();
+    let dayIndex = date.getDay() === 0 ? 6 : date.getDay() - 1;
+    let maxPerDay = (max - min) / 7;
+    let minWithDay = Math.floor(min + maxPerDay * dayIndex);
+    let maxWithDay = Math.floor(max * ((dayIndex + 1) / 7));
+    let amount = Math.floor(
+      Math.random() * (maxWithDay - minWithDay + 1) + minWithDay
+    );
+    return Common.formatNumberWithCommas(amount);
+  };
+
+  const [jackpotAmount, setJackpotAmount] = useState(
+    generateJackpotAmount({ min: 200000, max: 5000000 })
+  );
+
   return (
     <div>
       <JackpotHolder>
         <JackpotContentWorkingSpace>
           <TopContent>
-            ₱ <Numbers amount={Common.addComma(123456789)} />
+            ₱ <Numbers amount={jackpotAmount} />
           </TopContent>
           <BottomLeftcontent>
             <Winners title="Slots Winners" />

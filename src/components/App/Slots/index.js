@@ -112,7 +112,7 @@ const GameTabButton = styled.div`
     background-image: linear-gradient(
       to top,
       ${({ theme }) => theme.primaryGradient},
-      ${({ theme }) => theme.primary}
+      ${({ theme }) => theme.accent}
     );
   }
 
@@ -133,7 +133,7 @@ const GameTabButton = styled.div`
       ? `  background-image: linear-gradient(to top, ` +
         props.theme.primaryGradient +
         `, ` +
-        props.theme.primary +
+        props.theme.accent +
         `);`
       : `  background-color: #EEEEEE;`};
 
@@ -162,7 +162,7 @@ const GameTabAll = styled(GameTabButton)`
       ? `  background: url(${SlotAllPNG}) , linear-gradient(to top, ` +
         props.theme.primaryGradient +
         `, ` +
-        props.theme.primary +
+        props.theme.accent +
         `);`
       : `  background: url(${SlotAllInactivePNG}) , rgb(238, 238, 238);`};
   background-repeat: no-repeat;
@@ -174,7 +174,7 @@ const GameTabAll = styled(GameTabButton)`
       linear-gradient(
         to top,
         ${({ theme }) => theme.primaryGradient},
-        ${({ theme }) => theme.primary}
+        ${({ theme }) => theme.accent}
       );
   }
 `;
@@ -342,7 +342,7 @@ const Namecontainer = styled.div`
   background-image: linear-gradient(
     to top,
     ${({ theme }) => theme.primaryGradient},
-    ${({ theme }) => theme.primary}
+    ${({ theme }) => theme.accent}
   );
 
   color: #ffffff;

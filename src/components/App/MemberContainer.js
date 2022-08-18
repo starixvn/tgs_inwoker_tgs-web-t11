@@ -67,7 +67,7 @@ const BtnLogout = styled.div`
 
   &:hover {
     cursor: pointer;
-    color: ${({ theme }) => theme.pcHeaderTextHover};
+    color: ${({ theme }) => theme.accent};
   }
 `;
 
@@ -106,10 +106,10 @@ const RefreshBalanceIcon = styled.div`
   }
 `;
 const BalanceAmountLabel = styled.span`
-  color: ${({ theme }) => theme.pcHeaderTextHover};
+  color: ${({ theme }) => theme.accent};
 `;
 const MemberUserName = styled.span`
-  color: ${({ theme }) => theme.pcHeaderTextHover};
+  color: ${({ theme }) => theme.accent};
 `;
 const Spliter = styled.div`
   width: 2px;
@@ -118,7 +118,7 @@ const Spliter = styled.div`
   background-color: rgba(255, 255, 255, 0.2);
 `;
 const InboxContainer = styled(BalanceContainer)`
-  color: ${({ theme }) => theme.pcHeaderText};
+  color: ${({ theme }) => theme.accent};
   text-align: right;
   display: flex;
   cursor: pointer;
@@ -131,7 +131,7 @@ const InboxIconImg = styled.img`
   margin-top: 2px;
 `;
 const InboxCountLabel = styled.span`
-  color: ${({ theme }) => theme.pcHeaderTextHover};
+  color: ${({ theme }) => theme.accent};
   display: inline-block;
 `;
 const WelcomeContainer = styled(BalanceContainer)`
