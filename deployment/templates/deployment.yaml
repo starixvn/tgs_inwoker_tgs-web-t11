@@ -54,7 +54,7 @@ spec:
           - name: CURRENCY
             value: "{{ .Values.currency }}"
           - name: BRAND
-            value: "PGG"
+            value: "{{ .Values.brand }}"
           - name: DEFAULT_LANGUAGE
             value: "{{ .Values.defaultLanguage }}"
           - name: THEME

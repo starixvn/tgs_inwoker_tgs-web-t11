@@ -113,6 +113,8 @@ pipeline {
 								--set defaultLanguage=${DefaultLanguage}  \
 								--set apiKey=${ApiKey}  \
 								--set currency=${DefaultCurrency}  \
+								--set theme=${Theme} \
+								--set template=${Template} \
 								--set image.repository=${Registry}${env.LobbyName} \
 								--set brandToken=${tgs_gpi_brand_token} \
 								--set image.tag=${TAG} \
@@ -130,6 +132,8 @@ pipeline {
 								--set defaultLanguage=${defaultLanguage}  \
 								--set apiKey=${ApiKey}   \
 								--set currency=${DefaultCurrency}  \
+							    --set theme=${Theme} \
+								--set template=${Template} \
 								--set image.repository=${Registry}${LobbyName} \
 								--set brandToken=${tgs_gpi_brand_token} \
 								--set image.tag=${TAG} \
