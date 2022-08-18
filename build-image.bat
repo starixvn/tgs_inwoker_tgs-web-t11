@@ -1,4 +1,4 @@
-docker login registry.gitlab.com -u lester.wei@rayprosoft.com
-docker build -f Dockerfile-New -t registry.gitlab.com/rayprosoft/turnkey-gaming-system/lobby-t1:merged .
-docker push registry.gitlab.com/rayprosoft/turnkey-gaming-system/lobby-t1:merged
+docker login -u pgtgs
+docker build -f Dockerfile -t pgtgs/lobby-t11:dev .
+docker push pgtgs/lobby-t11:dev
 pause
