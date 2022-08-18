@@ -1,6 +1,6 @@
 import featureList from "./features";
 
-var template = 2; //2 for T2, 3 for T3 (based on .xd file)
+var template = 11; //2 for T2, 3 for T3 (based on .xd file)
 const config = {
   baseUrl: window?.env ? "/api/" : "https://stg-t1.rpgp.cc/api/",
   client:

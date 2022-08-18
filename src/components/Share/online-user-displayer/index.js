@@ -9,7 +9,9 @@ const OnlineDisplayerText = styled.div`
   font-size ${({ size }) => {
     return size ? size : "";
   }};
-
+  text-align: ${({ textAlign }) => {
+    return textAlign ? textAlign : "unset";
+  }};
   min-width: 125px;
   padding-right: 10px;
 `;
@@ -18,7 +20,7 @@ const OnlineUserText = styled.span`
   font-weight: bold;
 `;
 
-const OnlineUserDisplayer = ({ color, size }) => {
+const OnlineUserDisplayer = ({ color, size, textAlign }) => {
   function randomNumberGenerator(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
@@ -36,7 +38,7 @@ const OnlineUserDisplayer = ({ color, size }) => {
   });
 
   return (
-    <OnlineDisplayerText color={color} size={size}>
+    <OnlineDisplayerText color={color} size={size} textAlign={textAlign}>
       {i18next.t("common.playeronline")}:{" "}
       <OnlineUserText>{totalPlayer}</OnlineUserText>
     </OnlineDisplayerText>
