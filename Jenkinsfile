@@ -81,12 +81,12 @@ pipeline {
         }	
         stage('Docker Build') {   
             steps {	  			    
-                sh "docker build -t ${Registry}${Image}:${TAG} ."
+                sh "docker build -t ${Registry}${LobbyName}:${TAG} ."
             }
         }			
         stage('Docker Push') {   
             steps {	  
-                sh "docker push ${Registry}${Image}:${TAG}"
+                sh "docker push ${Registry}${LobbyName}:${TAG}"
             }
         }
 		
