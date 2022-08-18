@@ -59,7 +59,6 @@ pipeline {
                     }
                     TAG = env.kube_ns + '-' + TAG
                     message += "\nBranch: ${env.GIT_BRANCH}" 
-                    message += "\nImage: ${Image}"
                     message += "\nTag: ${TAG}"
                     message += "\nEnv: $env.kube_ns"
                     env.commit_url = "${env.GIT_URL}".replace(".git","/-/commit/") + "${env.GIT_COMMIT}"
