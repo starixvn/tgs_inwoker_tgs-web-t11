@@ -166,7 +166,7 @@ pipeline {
 						if (env.tgs_lobby_t11_components!="") {
 							for (i = 0;i < componentArray.length; i++) {
 								message += "\n    ${componentArray[i]}"
-								sh "kubectl set image deployment/${componentArray[i]} ${componentArray[i]}=${Registry}${Image}:${TAG} --record -n $env.kube_ns"
+								sh "kubectl set image deployment/${componentArray[i]} ${componentArray[i]}=${Registry}${LobbyImage}:${TAG} --record -n $env.kube_ns"
 							}
 						}
                     }
