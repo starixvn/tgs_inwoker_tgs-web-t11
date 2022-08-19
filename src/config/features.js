@@ -106,6 +106,7 @@ const featureList = {
 
     Wap_DisplayButton: false,
     MergeEVORTNT: true,
+    HideMarquee: true,
   },
 };
 export default featureList;
