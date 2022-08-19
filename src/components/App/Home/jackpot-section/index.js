@@ -6,6 +6,15 @@ import Common from "../../../../utils/Common";
 import SlotGenerator from "../slot-generator";
 import Winners from "./winners";
 
+import moment from "moment";
+import {
+  jiliSlot,
+  rtSlot,
+  jdbSlot,
+  jiliFish,
+  jdbFish,
+} from "../../../Wap/Main/Home/scene-1/template11/hardcode";
+
 const JackpotHolder = styled.div`
   height: 800px;
   background: url(${process.env.PUBLIC_URL +
@@ -123,6 +132,40 @@ const JackpotSection = ({ showLogin, token }) => {
     generateJackpotAmount({ min: 200000, max: 5000000 })
   );
 
+  const recommendedGames = [
+    {
+      title: "JILI.slots",
+      list: jiliSlot,
+      type: GameTypeEnum.SLOT,
+      platform: "JILITF",
+    },
+    {
+      title: "RT.slots",
+      list: rtSlot,
+      type: GameTypeEnum.SLOT,
+      platform: "RTTF",
+    },
+    {
+      title: "JDB.slots",
+      list: jdbSlot,
+      type: GameTypeEnum.SLOT,
+      platform: "JDB",
+    },
+
+    {
+      title: "JILI.fish",
+      list: jiliFish,
+      type: GameTypeEnum.FISH,
+      platform: "JILITF",
+    },
+    {
+      title: "JDB.fish",
+      list: jdbFish,
+      type: GameTypeEnum.FISH,
+      platform: "JDB",
+    },
+  ];
+
   return (
     <div>
       <JackpotHolder>
@@ -139,25 +182,17 @@ const JackpotSection = ({ showLogin, token }) => {
         </JackpotContentWorkingSpace>
       </JackpotHolder>
       <SlotContainer>
-        <SlotGenerator
-          title={"JILI SLOTS"}
-          platform="JILITF"
-          type={GameTypeEnum.SLOT}
-          commonprops={commonprops}
-        />
-        <SlotGenerator
-          title={"REAL TIGER SLOTS"}
-          platform="RTTF"
-          type={GameTypeEnum.SLOT}
-          commonprops={commonprops}
-        />
-
-        <SlotGenerator
-          title={"JILI FISHING"}
-          platform="JILITF"
-          type={GameTypeEnum.FISH}
-          commonprops={commonprops}
-        />
+        {recommendedGames.map((data, index) => {
+          return (
+            <SlotGenerator
+              title={data.title}
+              platform={data.platform}
+              type={data.type}
+              list={data.list}
+              commonprops={commonprops}
+            />
+          );
+        })}
       </SlotContainer>
     </div>
   );
