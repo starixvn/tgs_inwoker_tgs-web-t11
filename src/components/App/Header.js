@@ -41,6 +41,7 @@ import { GeneralService } from "../../api-services/services/GeneralService";
 import ErrorSwitcher from "../../utils/ErrorSwitcher";
 import { AppHistory } from "../../history/History";
 import { SortedMenuList } from "../../utils/HeaderSorting";
+import OnlineUserDisplayer from "../Share/online-user-displayer";
 
 const moment = require("moment");
 
@@ -118,6 +119,7 @@ const CustomLink = styled(Link)`
 
 const RightContainer = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const BtnAppsAndCS = styled.div`
@@ -953,6 +955,9 @@ class Header extends Component {
               </LinkContainer>
             </LeftContent>
             <RightContainer>
+              {config.features.OnlineUser && (
+                <OnlineUserDisplayer color="#fff" size="14px" />
+              )}
               {(() => {
                 if (!this.props.general.isMaintenance) {
                   if (

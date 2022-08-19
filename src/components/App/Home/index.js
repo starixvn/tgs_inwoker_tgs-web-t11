@@ -234,9 +234,11 @@ class Home extends Component {
       <HomeContainer>
         <SliderContainer>
           <Slider list={this.props.ui.board_list}></Slider>
-          <MarqueeContainer>
-            <Marquee text={this.props.ui.marqueeText}></Marquee>
-          </MarqueeContainer>
+          {!config.features.HideMarquee && (
+            <MarqueeContainer>
+              <Marquee text={this.props.ui.marqueeText}></Marquee>
+            </MarqueeContainer>
+          )}
         </SliderContainer>
         <SectionContainer>
           <JackpotSection
