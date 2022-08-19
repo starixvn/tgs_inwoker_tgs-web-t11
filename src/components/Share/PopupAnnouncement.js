@@ -198,7 +198,6 @@ class PopupAnnouncement extends Component {
   };
 
   render() {
-    console.log(this.props.isCustom)
     return (
       <StyledDialog open={this.props.open} onClose={this.props.onClose}>
         <ContainerSwitcher isCustom={this.props.isCustom} onClose={this.props.onClose}>

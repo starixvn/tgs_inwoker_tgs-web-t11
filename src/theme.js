@@ -596,6 +596,8 @@ export const wapT11 = {
   popoverGameTypeText: "#c40511",
   popoverSubWalletText: "#000",
 
+  wapMarqueeBg: "#d5266275",
+  wapMarqueeText: "#fff",
   accent: "#d52662",
 };
 
