@@ -599,6 +599,8 @@ export const wapT11 = {
   wapMarqueeBg: "#d5266275",
   wapMarqueeText: "#fff",
   accent: "#d52662",
+  wapPrimary: "#d52662",
+  wapSecondary: "#fff",
 };
 
 export const themeList = {
