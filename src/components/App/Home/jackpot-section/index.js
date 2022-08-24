@@ -21,7 +21,7 @@ const JackpotHolder = styled.div`
   "/assets/images/pcHomePage/jackpot.png"});
   background-size: contain;
   background-position: center;
-  background-position-x: 285px;
+
   background-repeat: no-repeat;
   position: relative;
   margin-bottom: 50px;
@@ -32,7 +32,7 @@ const JackpotContentWorkingSpace = styled.div`
   height: 512px;
   position: relative;
   top: 214px;
-  left: 443px;
+  left: 90px;
   display: grid;
   grid-auto-columns: 1fr;
   grid-template-columns: 1fr 1fr;
@@ -94,6 +94,13 @@ const SlotContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+`;
+
+const JackpotGif = styled.img`
+  width: 445px;
+  position: absolute;
+  left: 374px;
+  top: 118px;
 `;
 
 const JackpotSection = ({ showLogin, token }) => {
@@ -169,6 +176,11 @@ const JackpotSection = ({ showLogin, token }) => {
   return (
     <div>
       <JackpotHolder>
+        <JackpotGif
+          src={
+            process.env.PUBLIC_URL + "/assets/images/wapp/home/T11/jackpot.gif"
+          }
+        />
         <JackpotContentWorkingSpace>
           <TopContent>
             ₱ <Numbers amount={jackpotAmount} />

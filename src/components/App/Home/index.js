@@ -45,6 +45,8 @@ const SectionContainer = styled.div`
   background-size: cover;
   width: 100%;
   min-height: 1200px;
+  display: flex;
+  justify-content: center;
 `;
 const FirstSection = styled.div`
   width: 1280px;
