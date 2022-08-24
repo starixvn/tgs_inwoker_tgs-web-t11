@@ -13,8 +13,6 @@ import Common from "../../../utils/Common";
 const Container = styled.div`
   width: 100%;
   height: auto;
-
-  padding: 70px 0px;
   position: relative;
   min-height: ${(props) =>
     props.GamePage_SpecificBackground ? "900px" : "870px"};
@@ -24,27 +22,33 @@ const Container = styled.div`
       (props.GamePage_SpecificBackground ? "-hk28" : "") +
       ".jpg"})
     no-repeat center;
+  background-size: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const GirlImage = styled.div`
   background: url(${(props) => props.img}) no-repeat;
   width: 308px;
   height: 172px;
+  background-size: contain;
+  background-position: center;
   float: right;
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 const LeftSlide = styled(ScrollAnimation)`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 308px);
+  grid-gap: 10px;
+  grid-auto-rows: 200px;
+  justify-content: center;
+  align-items: center;
 `;
-const RightSlide = styled(ScrollAnimation)`
-  display: flex;
-`;
+
 const ItemContainer = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Maintenance = styled.div`
@@ -65,6 +69,7 @@ const Maintenance = styled.div`
 
 const ImageWrapper = styled.div`
   position: relative;
+  justify-self: center;
 
   ${({ maintenance }) => {
     return maintenance
@@ -92,6 +97,7 @@ class LiveGame extends Component {
       .filter((item) => {
         return item.type === GameTypeEnum.LIVELOBBY;
       })
+
       .sort((a, b) => {
         if (config.features.LiveGame_Sorting_SKY) {
           var sortDGFirst = ["DG"];
@@ -126,6 +132,7 @@ class LiveGame extends Component {
         .filter((item) => {
           return item.type === GameTypeEnum.LIVE;
         })
+
         .sort((a, b) => {
           if (config.features.LiveGame_Sorting_SKY) {
             var sortDGFirst = ["DG"];
@@ -243,52 +250,18 @@ class LiveGame extends Component {
           config.features.GamePage_SpecificBackground
         }
       >
-        <ItemContainer style={{ marginTop: ifMoreThanTen ? 150 : 370 }}>
+        <ItemContainer>
           <LeftSlide
             animateIn="fadeInLeft"
             duration={1}
             animateOnce={true}
             style={{ overflow: "visible" }}
           >
-            {customSorting
-              .slice(0, firstRow)
-              .reverse()
-              .map((item, index) => {
-                return <ImageDisplayer item={item} />;
-              })}
+            {customSorting.map((item, index) => {
+              return <ImageDisplayer item={item} />;
+            })}
           </LeftSlide>
         </ItemContainer>
-        <ItemContainer style={{ marginTop: ifMoreThanTen ? 340 : 560 }}>
-          <RightSlide
-            animateIn="fadeInRight"
-            duration={1}
-            animateOnce={true}
-            style={{ overflow: "visible" }}
-          >
-            {customSorting.map((item, index) => {
-              return (
-                index >= firstRow &&
-                index <= firstRow + secondRow && <ImageDisplayer item={item} />
-              );
-            })}
-          </RightSlide>
-        </ItemContainer>
-        {ifMoreThanTen && (
-          <ItemContainer style={{ marginTop: 530 }}>
-            <RightSlide
-              animateIn="fadeInRight"
-              duration={1}
-              animateOnce={true}
-              style={{ overflow: "visible" }}
-            >
-              {customSorting.map((item, index) => {
-                return (
-                  index > firstRow + secondRow && <ImageDisplayer item={item} />
-                );
-              })}
-            </RightSlide>
-          </ItemContainer>
-        )}
       </Container>
     );
   }
