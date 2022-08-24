@@ -99,7 +99,7 @@ const CustomEmptyHeader = styled.div`
     no-repeat;
   background-size: 80vw 16vh;
   padding: 6vh 6vw;
-  font-size: 2.5em;
+  font-size: 3em;
   font-weight: bold;
   font-style: italic;
   color: #fff;
@@ -120,7 +120,7 @@ const CustomHeaderImage = styled.div`
 const CustomTitleContainer = styled(TitleContainer)`
   color: #fff;
   font-style: italic;
-  font-size: 45px;
+  font-size: 30px;
   margin: 15px auto 10px;
 `;
 const CustomBodyContainer = styled.div`
@@ -137,7 +137,7 @@ const CustomFormContainer = styled.div`
   margin: 0 auto;
   padding: 2em;
   width: 70vw;
-  font-size: 30px;
+  font-size: 22px;
   text-align: justify;
   overflow: auto;
   height: 22vh;
