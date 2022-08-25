@@ -111,7 +111,7 @@ const featureList = {
     Wap_DisplayButton: false,
     MergeEVORTNT: true,
     HideMarquee: true,
-    Deposit_AccountNameManualInput: true,
+    Deposit_AccountNameManualInput: false,
   },
 };
 export default featureList;
