@@ -104,9 +104,14 @@ const featureList = {
     ForcedVerification: false,
     Profile_DisplayEditNameButton: true,
 
+    Home_OnlineUsers: {
+      min: 26500,
+      max: 27500,
+    },
     Wap_DisplayButton: false,
     MergeEVORTNT: true,
     HideMarquee: true,
+    Deposit_AccountNameManualInput: true,
   },
 };
 export default featureList;
