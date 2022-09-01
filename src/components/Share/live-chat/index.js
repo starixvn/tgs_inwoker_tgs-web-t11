@@ -10,7 +10,7 @@ const LiveChat = ({ vendor, license }) => {
       case "smartsupp":
         return <Smartsupp smartsuppkey={license} />;
       case "livechat":
-        return <LiveChatCS license={license} />;
+        return <LiveChatCS license={license} group={group}/>;
       case "tawk":
         return <Tawkto license={license} />;
       case "zendesk":
