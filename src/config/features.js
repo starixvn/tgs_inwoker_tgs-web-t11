@@ -113,6 +113,7 @@ const featureList = {
     HideMarquee: true,
     Deposit_AccountNameManualInput: false,
     RouletteNewFlow: false,
+    UseAccentColor: true,
   },
 };
 export default featureList;

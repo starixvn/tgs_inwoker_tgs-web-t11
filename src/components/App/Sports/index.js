@@ -2,33 +2,27 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
-import config from "../../../config/config";
-import { GameTypeEnum } from "../../../api-services/utils/Enum";
+import { GameTypeEnum, GameEnum } from "../../../api-services/utils/Enum";
 import { SHOW_LOGIN } from "../../../api-services/constant/actionType";
 import i18n from "../../../utils/i18n";
-import Common from "../../../utils/Common";
 
 import ScrollAnimation from "react-animate-on-scroll";
-
+import Common from "../../../utils/Common";
 const Container = styled.div`
   width: 100%;
   height: auto;
-  min-height: 850px;
+  min-height: 770px;
   padding: 70px 0px;
   position: relative;
-  background: url(${(props) =>
-      process.env.PUBLIC_URL +
-      "/assets/images/pcGamePage/sports/bg" +
-      (props.GamePage_SpecificBackground ? "-hk28" : "") +
-      ".jpg"})
+  background: url(${(props) => process.env.PUBLIC_URL}/assets/images/pcGamePage/sports/background.jpg)
     no-repeat center;
 `;
-
 const GirlImage = styled.div`
   background: url(${(props) => props.img}) no-repeat;
   width: 308px;
-  height: 172px;
-  float: right;
+  height: 244px;
+
+  float: left;
   &:hover {
     cursor: pointer;
   }
@@ -45,7 +39,6 @@ const ItemContainer = styled.div`
   transform: translateX(-50%);
   overflow: visible;
 `;
-
 const Maintenance = styled.div`
   width: 100%;
   height: 100%;
@@ -61,24 +54,23 @@ const Maintenance = styled.div`
   user-select: none;
   cursor: not-allowed;
 `;
-
-const ImageWrapper = styled.div`
+const GameWrapper = styled.div`
   position: relative;
 
   ${({ maintenance }) => {
     return maintenance
       ? `
 
-    ${Maintenance}{
-     
-      display: flex;
-    }
-    ${GirlImage}{
-      filter: brightness(40%) grayscale(200%);
-    }
-    
-    
-    `
+  ${Maintenance}{
+   
+    display: flex;
+  }
+  ${GirlImage}{
+    filter: brightness(40%) grayscale(200%);
+  }
+  
+  
+  `
       : ``;
   }}
 `;
@@ -128,28 +120,13 @@ class Sports extends Component {
       if (type === GameTypeEnum.RNGSPORTS) {
         this.props.history.push("/" + i18n.language + "/sports/" + params);
       } else if (params === "WGFM" || params === "WGVIA") {
-        if (document.getElementById("audio") != null)
-          document.getElementById("audio").volume = 0.0;
-        // this.props.performBalanceRefresh();
-        var win = Common.PopupCenter(
+        Common.PopupCenter(
           `/${i18n.language}/joinlobbygame/${type}/${params}`,
           params,
           1280,
           720
         );
-        // var win = window.open(
-        //   `/${i18n.language}/joinlobbygame/${type}/${params}`,
-        //   "gamewindow"
-        // );
-        var timer = setInterval(function () {
-          if (win.closed) {
-            clearInterval(timer);
-            if (document.getElementById("audio") != null)
-              document.getElementById("audio").volume = 1.0;
-          }
-        }, 1000);
       } else {
-        // this.props.performBalanceRefresh();
         this.props.history.push(
           "/" + i18n.language + "/sports/play/" + params + "/" + type
         );
@@ -158,43 +135,40 @@ class Sports extends Component {
   };
   render() {
     return (
-      <Container
-        GamePage_SpecificBackground={
-          config.features.GamePage_SpecificBackground
-        }
-      >
-        <ItemContainer style={{ marginTop: 370 }}>
+      <Container>
+        <ItemContainer style={{ marginTop: 180 }}>
           <LeftSlide
             animateIn="fadeInLeft"
             duration={1}
             animateOnce={true}
             style={{ overflow: "visible" }}
           >
-            {this.state.list.slice(0, 4).map((item, index) => {
-              return (
-                <ImageWrapper maintenance={item.status != 0}>
-                  <Maintenance>{i18n.t("transfer.maintenance")}</Maintenance>
-                  <GirlImage
-                    img={
-                      process.env.PUBLIC_URL +
-                      "/assets/images/pcGamePage/sports/" +
-                      (config.features.SportsHideLogo ? "hkjp/" : "") +
-                      item.abbreviation.toLowerCase() +
-                      (config.features.SportsHideLogo
-                        ? "-" + i18n.language
-                        : "") +
-                      ".png"
-                    }
-                    onClick={() => {
-                      this.handleJoinGameClick(item.abbreviation, item.type);
-                    }}
-                  />
-                </ImageWrapper>
-              );
-            })}
+            {this.state.list
+              .slice(0, 4)
+
+              .map((item, index) => {
+                return (
+                  <GameWrapper maintenance={item.status != 0}>
+                    <Maintenance>{i18n.t("transfer.maintenance")}</Maintenance>
+                    <GirlImage
+                      style={{ float: "right" }}
+                      img={
+                        process.env.PUBLIC_URL +
+                        "/assets/images/pcGamePage/sports/" +
+                        item.abbreviation.toLowerCase() +
+                        ".png"
+                      }
+                      onClick={() => {
+                        this.handleJoinGameClick(item.abbreviation, item.type);
+                      }}
+                    />
+                  </GameWrapper>
+                );
+              })}
           </LeftSlide>
         </ItemContainer>
-        <ItemContainer style={{ marginTop: 560 }}>
+
+        <ItemContainer style={{ marginTop: 405 }}>
           <RightSlide
             animateIn="fadeInRight"
             duration={1}
@@ -204,27 +178,22 @@ class Sports extends Component {
             {this.state.list.map((item, index) => {
               if (index >= 4) {
                 return (
-                  <ImageWrapper maintenance={item.status != 0}>
+                  <GameWrapper maintenance={item.status != 0}>
                     <Maintenance>{i18n.t("transfer.maintenance")}</Maintenance>
                     <GirlImage
+                      style={{ float: "right" }}
                       img={
                         process.env.PUBLIC_URL +
                         "/assets/images/pcGamePage/sports/" +
-                        (config.features.SportsHideLogo ? "hkjp/" : "") +
                         item.abbreviation.toLowerCase() +
-                        (config.features.SportsHideLogo
-                          ? "-" + i18n.language
-                          : "") +
                         ".png"
                       }
                       onClick={() => {
                         this.handleJoinGameClick(item.abbreviation, item.type);
                       }}
                     />
-                  </ImageWrapper>
+                  </GameWrapper>
                 );
-              } else {
-                return null;
               }
             })}
           </RightSlide>

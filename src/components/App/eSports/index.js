@@ -2,33 +2,27 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
-import config from "../../../config/config";
-import { GameTypeEnum } from "../../../api-services/utils/Enum";
+import { GameTypeEnum, GameEnum } from "../../../api-services/utils/Enum";
 import { SHOW_LOGIN } from "../../../api-services/constant/actionType";
 import i18n from "../../../utils/i18n";
-import Common from "../../../utils/Common";
 
 import ScrollAnimation from "react-animate-on-scroll";
-
+import Common from "../../../utils/Common";
 const Container = styled.div`
   width: 100%;
   height: auto;
-  min-height: 850px;
+  min-height: 770px;
   padding: 70px 0px;
   position: relative;
-  background: url(${(props) =>
-      process.env.PUBLIC_URL +
-      "/assets/images/pcGamePage/esports/bg" +
-      (props.GamePage_SpecificBackground ? "-hk28" : "") +
-      ".jpg"})
+  background: url(${(props) => process.env.PUBLIC_URL}/assets/images/pcGamePage/esports/background.jpg)
     no-repeat center;
 `;
-
 const GirlImage = styled.div`
   background: url(${(props) => props.img}) no-repeat;
   width: 308px;
-  height: 172px;
-  float: right;
+  height: 244px;
+
+  float: left;
   &:hover {
     cursor: pointer;
   }
@@ -45,7 +39,6 @@ const ItemContainer = styled.div`
   transform: translateX(-50%);
   overflow: visible;
 `;
-
 const Maintenance = styled.div`
   width: 100%;
   height: 100%;
@@ -61,39 +54,33 @@ const Maintenance = styled.div`
   user-select: none;
   cursor: not-allowed;
 `;
-
-const ImageWrapper = styled.div`
+const GameWrapper = styled.div`
   position: relative;
 
   ${({ maintenance }) => {
     return maintenance
       ? `
 
-    ${Maintenance}{
-     
-      display: flex;
-    }
-    ${GirlImage}{
-      filter: brightness(40%) grayscale(200%);
-    }
-    
-    
-    `
+  ${Maintenance}{
+   
+    display: flex;
+  }
+  ${GirlImage}{
+    filter: brightness(40%) grayscale(200%);
+  }
+  
+  
+  `
       : ``;
   }}
 `;
 class ESports extends Component {
   constructor(props) {
     super(props);
-
-    var sportsList = props.game.homePageGameList.filter((item) => {
-      return item.type === GameTypeEnum.ESPORTS;
-    });
-
     this.state = {
-      selected: sportsList[0],
-
-      list: sportsList,
+      list: props.game.homePageGameList.filter((item) => {
+        return item.type === GameTypeEnum.ESPORTS;
+      }),
     };
   }
 
@@ -119,21 +106,23 @@ class ESports extends Component {
     if (!this.props.account.token) {
       this.props.showLogin(true);
     } else {
-      Common.closePreviousPopup();
       // this.props.performBalanceRefresh();
+      Common.closePreviousPopup();
       this.props.history.push(
-        "/" + i18n.language + "/sports/play/" + params + "/" + type
+        "/" +
+          i18n.language +
+          "/sports/play/" +
+          params +
+          "/" +
+          GameTypeEnum.ESPORTS
       );
     }
   };
   render() {
+    const lessThanFour = this.state.list.length <= 4;
     return (
-      <Container
-        GamePage_SpecificBackground={
-          config.features.GamePage_SpecificBackground
-        }
-      >
-        <ItemContainer style={{ marginTop: 370 }}>
+      <Container>
+        <ItemContainer style={{ marginTop: lessThanFour ? 350 : 180 }}>
           <LeftSlide
             animateIn="fadeInLeft"
             duration={1}
@@ -145,29 +134,27 @@ class ESports extends Component {
 
               .map((item, index) => {
                 return (
-                  <ImageWrapper maintenance={item.status != 0}>
+                  <GameWrapper maintenance={item.status != 0}>
                     <Maintenance>{i18n.t("transfer.maintenance")}</Maintenance>
                     <GirlImage
+                      style={{ float: "right" }}
                       img={
                         process.env.PUBLIC_URL +
                         "/assets/images/pcGamePage/sports/" +
-                        (config.features.SportsHideLogo ? "hkjp/" : "") +
                         item.abbreviation.toLowerCase() +
-                        (config.features.SportsHideLogo
-                          ? "-" + i18n.language
-                          : "") +
                         ".png"
                       }
                       onClick={() => {
-                        this.handleJoinGameClick(item.abbreviation, item.type);
+                        this.handleJoinGameClick(item.abbreviation);
                       }}
                     />
-                  </ImageWrapper>
+                  </GameWrapper>
                 );
               })}
           </LeftSlide>
         </ItemContainer>
-        <ItemContainer style={{ marginTop: 560 }}>
+
+        <ItemContainer style={{ marginTop: 405 }}>
           <RightSlide
             animateIn="fadeInRight"
             duration={1}
@@ -177,27 +164,22 @@ class ESports extends Component {
             {this.state.list.map((item, index) => {
               if (index >= 4) {
                 return (
-                  <ImageWrapper maintenance={item.status != 0}>
+                  <GameWrapper maintenance={item.status != 0}>
                     <Maintenance>{i18n.t("transfer.maintenance")}</Maintenance>
                     <GirlImage
+                      style={{ float: "right" }}
                       img={
                         process.env.PUBLIC_URL +
                         "/assets/images/pcGamePage/sports/" +
-                        (config.features.SportsHideLogo ? "hkjp/" : "") +
                         item.abbreviation.toLowerCase() +
-                        (config.features.SportsHideLogo
-                          ? "-" + i18n.language
-                          : "") +
                         ".png"
                       }
                       onClick={() => {
-                        this.handleJoinGameClick(item.abbreviation, item.type);
+                        this.handleJoinGameClick(item.abbreviation);
                       }}
                     />
-                  </ImageWrapper>
+                  </GameWrapper>
                 );
-              } else {
-                return null;
               }
             })}
           </RightSlide>

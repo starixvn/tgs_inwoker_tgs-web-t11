@@ -109,11 +109,7 @@ const PromoButtonImg = styled.div`
   width: 100%;
   border-radius: 5px;
   height: 62px;
-  background-image: linear-gradient(
-    to top,
-    ${({ theme }) => theme.primaryGradient},
-    ${({ theme }) => theme.primary}
-  );
+  background: ${({ theme }) => theme.accent};
 `;
 
 const PromoButtonText = styled.div`

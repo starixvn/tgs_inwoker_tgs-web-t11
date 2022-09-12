@@ -58,6 +58,10 @@ const TopContent = styled.div`
   gap: 4px;
 `;
 
+const CurrencyHolder = styled.div`
+  padding-top: 30px;
+`;
+
 const BottomLeftcontent = styled.div`
   grid-area: bottomLeft;
   padding: 10px 10px 10px 150px;
@@ -70,16 +74,17 @@ const BottomRightContent = styled.div`
 
 const TextHolder = styled.div`
   border-radius: 8px;
-  padding: 0 10px;
+  padding: 0 5px 0 10px;
   text-align: center;
-  font-size: 60px;
+  font-size: 47px;
   ${({ hide }) => {
     return hide
       ? `
-   font-size: 30px;
+   font-size: 20px;
    width: 20px;
+  
   `
-      : ` background: #000;`;
+      : ` background: #000;font-size: 50px;`;
   }}
 `;
 
@@ -183,7 +188,8 @@ const JackpotSection = ({ showLogin, token }) => {
         />
         <JackpotContentWorkingSpace>
           <TopContent>
-            ₱ <Numbers amount={jackpotAmount} />
+            <CurrencyHolder>₱</CurrencyHolder>{" "}
+            <Numbers amount={jackpotAmount} />
           </TopContent>
           <BottomLeftcontent>
             <Winners title="Slots Winners" />

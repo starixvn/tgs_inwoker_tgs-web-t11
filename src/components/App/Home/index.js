@@ -250,13 +250,6 @@ class Home extends Component {
             token={this.props.token}
           />
         </SectionContainer>
-        {this.props.game.providerList.filter((e) => {
-          return e.abbreviation === "KY";
-        }).length === 0 ? (
-          <FourthSection></FourthSection>
-        ) : (
-          <ThirdSection handleJoinGameClick={this.handleJoinGameClick} />
-        )}
 
         {(() => {
           if (
