@@ -601,6 +601,7 @@ export const wapT11 = {
   accent: "#d52662",
   wapPrimary: "#d52662",
   wapSecondary: "#fff",
+  buttonWapBoxShadow: "none",
 };
 
 export const themeList = {
