@@ -16,22 +16,22 @@ import {
 } from "../../../Wap/Main/Home/scene-1/template11/hardcode";
 
 const JackpotHolder = styled.div`
-  height: 800px;
+  height: 1135px;
   background: url(${process.env.PUBLIC_URL +
   "/assets/images/pcHomePage/jackpot.png"});
-  background-size: contain;
+  background-size: 105%;
   background-position: center;
 
   background-repeat: no-repeat;
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
 `;
 
 const JackpotContentWorkingSpace = styled.div`
   width: 1016px;
   height: 512px;
   position: relative;
-  top: 214px;
+  top: 365px;
   left: 90px;
   display: grid;
   grid-auto-columns: 1fr;
@@ -102,10 +102,10 @@ const SlotContainer = styled.div`
 `;
 
 const JackpotGif = styled.img`
-  width: 445px;
+  width: 455px;
   position: absolute;
-  left: 374px;
-  top: 118px;
+  left: 370px;
+  top: 272px;
 `;
 
 const JackpotSection = ({ showLogin, token }) => {
