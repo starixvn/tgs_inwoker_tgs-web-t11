@@ -573,7 +573,7 @@ export const wapT11 = {
   buttonText2: "#000",
   bottomnav: "#d52662",
   bottomNavAction: "#fff",
-  bottomNavActionSelected: "fff",
+  bottomNavActionSelected: "#fff",
   body: `url(${
     process.env.PUBLIC_URL + `/assets/images/wapp/resource/T11/bodybg.png`
   })`,
