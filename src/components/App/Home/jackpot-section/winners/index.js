@@ -115,6 +115,38 @@ const Winners = React.memo(({ title }) => {
     "TreasureBowl",
   ];
 
+  var min = 1000;
+  var max = 20000;
+
+  const [winnerList, setWinnerList] = useState([]);
+  var newList = [...winnerList];
+
+  Array.from({ length: 5 }, () =>
+    newList.push({
+      name: randomize(playerName),
+      game: randomize(gameName),
+      amount: Common.addComma(randomNumber(min, max)),
+    })
+  );
+
+  useEffect(() => {
+    const updateList = () => {
+      newList.pop();
+
+      newList.unshift({
+        name: randomize(playerName),
+        game: randomize(gameName),
+        amount: Common.addComma(randomNumber(min, max)),
+      });
+      setWinnerList(newList);
+    };
+
+    const interval = setInterval(updateList, randomNumber(1000, 10000));
+    return () => {
+      clearInterval(interval);
+    };
+  });
+
   function randomize(arr) {
     const randomIndex = Math.floor(Math.random() * arr.length);
     const item = arr[randomIndex];
@@ -125,33 +157,6 @@ const Winners = React.memo(({ title }) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  const FakeDataDisplayer = () => {
-    var min = 1000;
-    var max = 20000;
-    const [name, setName] = useState(randomize(playerName));
-    const [game, setGame] = useState(randomize(gameName));
-    const [amount, setAmount] = useState(
-      Common.addComma(randomNumber(min, max))
-    );
-
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setName(randomize(playerName));
-        setGame(randomize(gameName));
-        setAmount(Common.addComma(randomNumber(min, max)));
-      }, 10000);
-      return () => {
-        clearInterval(interval);
-      };
-    }, []);
-    return (
-      <TableData>
-        <div>{name}</div>
-        <div>{game}</div>
-        <div>{amount}</div>
-      </TableData>
-    );
-  };
   return (
     <ContentHolder>
       <Title>{title}</Title>
@@ -159,11 +164,15 @@ const Winners = React.memo(({ title }) => {
         <TableHeader>
           <div>Player</div> <div>Game</div> <div>Wins</div>
         </TableHeader>
-        <FakeDataDisplayer />
-        <FakeDataDisplayer />
-        <FakeDataDisplayer />
-        <FakeDataDisplayer />
-        <FakeDataDisplayer />
+        {winnerList.slice(0, 5).map((data, index) => {
+          return (
+            <TableData key={index}>
+              <div>{data.name}</div>
+              <div>{data.game}</div>
+              <div>{data.amount}</div>
+            </TableData>
+          );
+        })}
       </WinnerList>
     </ContentHolder>
   );

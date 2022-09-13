@@ -76,7 +76,7 @@ const TextHolder = styled.div`
   border-radius: 8px;
   padding: 0 5px 0 10px;
   text-align: center;
-  font-size: 47px;
+  font-size: 60px;
   ${({ hide }) => {
     return hide
       ? `
