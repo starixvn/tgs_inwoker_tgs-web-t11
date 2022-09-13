@@ -67,7 +67,7 @@ export const GlobalStyles = createGlobalStyle`
   
   .headerSubmenu .slick-prev::before,
   .headerSubmenu .slick-next::before {
-    color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.accent};
   }
   
 
