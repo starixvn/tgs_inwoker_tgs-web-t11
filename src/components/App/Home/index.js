@@ -46,7 +46,7 @@ const SectionContainer = styled.div`
   background-
   width: 100%;
   min-height: 1200px;
-  background-position-x: -45px;
+
   display: flex;
   justify-content: center;
 `;

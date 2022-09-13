@@ -40,7 +40,7 @@ const TableHeader = styled(TableLayout)`
 
 const TableData = styled(TableLayout)`
   border-top: solid 1.25px #fff;
-  font-size: 14px;
+  font-size: 12px;
   color: #fff;
 
   div {
