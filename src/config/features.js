@@ -114,6 +114,7 @@ const featureList = {
     Deposit_AccountNameManualInput: false,
     RouletteNewFlow: false,
     UseAccentColor: true,
+    Wap_ShowProfileTransfer: true,
   },
 };
 export default featureList;
