@@ -46,7 +46,7 @@ const SectionContainer = styled.div`
   background-
   width: 100%;
   min-height: 1200px;
-  background-position-x: -45px;
+
   display: flex;
   justify-content: center;
 `;
@@ -250,13 +250,6 @@ class Home extends Component {
             token={this.props.token}
           />
         </SectionContainer>
-        {this.props.game.providerList.filter((e) => {
-          return e.abbreviation === "KY";
-        }).length === 0 ? (
-          <FourthSection></FourthSection>
-        ) : (
-          <ThirdSection handleJoinGameClick={this.handleJoinGameClick} />
-        )}
 
         {(() => {
           if (

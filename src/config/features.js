@@ -112,6 +112,9 @@ const featureList = {
     MergeEVORTNT: true,
     HideMarquee: true,
     Deposit_AccountNameManualInput: false,
+    RouletteNewFlow: false,
+    UseAccentColor: true,
+    Wap_ShowProfileTransfer: true,
   },
 };
 export default featureList;

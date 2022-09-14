@@ -72,7 +72,9 @@ const GameTitle = styled.div`
   text-overflow: ellipsis;
 `;
 
-const GameBanner = styled.div``;
+const GameBanner = styled.div`
+  border-radius: 12px;
+`;
 
 const TitleGapper = styled.div`
   padding: 10px 40px 10px 80px;
@@ -87,7 +89,7 @@ const Overlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #232323;
+
   border-radius: 4px;
 `;
 

@@ -16,22 +16,22 @@ import {
 } from "../../../Wap/Main/Home/scene-1/template11/hardcode";
 
 const JackpotHolder = styled.div`
-  height: 800px;
+  height: 1135px;
   background: url(${process.env.PUBLIC_URL +
   "/assets/images/pcHomePage/jackpot.png"});
-  background-size: contain;
+  background-size: 105%;
   background-position: center;
 
   background-repeat: no-repeat;
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
 `;
 
 const JackpotContentWorkingSpace = styled.div`
   width: 1016px;
   height: 512px;
   position: relative;
-  top: 214px;
+  top: 365px;
   left: 90px;
   display: grid;
   grid-auto-columns: 1fr;
@@ -58,6 +58,10 @@ const TopContent = styled.div`
   gap: 4px;
 `;
 
+const CurrencyHolder = styled.div`
+  padding-top: 30px;
+`;
+
 const BottomLeftcontent = styled.div`
   grid-area: bottomLeft;
   padding: 10px 10px 10px 150px;
@@ -70,16 +74,17 @@ const BottomRightContent = styled.div`
 
 const TextHolder = styled.div`
   border-radius: 8px;
-  padding: 0 10px;
+  padding: 0 5px 0 10px;
   text-align: center;
   font-size: 60px;
   ${({ hide }) => {
     return hide
       ? `
-   font-size: 30px;
+   font-size: 20px;
    width: 20px;
+  
   `
-      : ` background: #000;`;
+      : ` background: #000;font-size: 50px;`;
   }}
 `;
 
@@ -97,10 +102,10 @@ const SlotContainer = styled.div`
 `;
 
 const JackpotGif = styled.img`
-  width: 445px;
+  width: 455px;
   position: absolute;
-  left: 374px;
-  top: 118px;
+  left: 370px;
+  top: 272px;
 `;
 
 const JackpotSection = ({ showLogin, token }) => {
@@ -183,7 +188,8 @@ const JackpotSection = ({ showLogin, token }) => {
         />
         <JackpotContentWorkingSpace>
           <TopContent>
-            ₱ <Numbers amount={jackpotAmount} />
+            <CurrencyHolder>₱</CurrencyHolder>{" "}
+            <Numbers amount={jackpotAmount} />
           </TopContent>
           <BottomLeftcontent>
             <Winners title="Slots Winners" />
