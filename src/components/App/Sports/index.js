@@ -170,31 +170,28 @@ class Sports extends Component {
             animateOnce={true}
             style={{ overflow: "visible" }}
           >
-            {this.state.list
-              .slice(0, 4)
-              .reverse()
-              .map((item, index) => {
-                return (
-                  <ImageWrapper maintenance={item.status != 0}>
-                    <Maintenance>{i18n.t("transfer.maintenance")}</Maintenance>
-                    <GirlImage
-                      img={
-                        process.env.PUBLIC_URL +
-                        "/assets/images/pcGamePage/sports/" +
-                        (config.features.SportsHideLogo ? "hkjp/" : "") +
-                        item.abbreviation.toLowerCase() +
-                        (config.features.SportsHideLogo
-                          ? "-" + i18n.language
-                          : "") +
-                        ".png"
-                      }
-                      onClick={() => {
-                        this.handleJoinGameClick(item.abbreviation, item.type);
-                      }}
-                    />
-                  </ImageWrapper>
-                );
-              })}
+            {this.state.list.slice(0, 4).map((item, index) => {
+              return (
+                <ImageWrapper maintenance={item.status != 0}>
+                  <Maintenance>{i18n.t("transfer.maintenance")}</Maintenance>
+                  <GirlImage
+                    img={
+                      process.env.PUBLIC_URL +
+                      "/assets/images/pcGamePage/sports/" +
+                      (config.features.SportsHideLogo ? "hkjp/" : "") +
+                      item.abbreviation.toLowerCase() +
+                      (config.features.SportsHideLogo
+                        ? "-" + i18n.language
+                        : "") +
+                      ".png"
+                    }
+                    onClick={() => {
+                      this.handleJoinGameClick(item.abbreviation, item.type);
+                    }}
+                  />
+                </ImageWrapper>
+              );
+            })}
           </LeftSlide>
         </ItemContainer>
         <ItemContainer style={{ marginTop: 560 }}>

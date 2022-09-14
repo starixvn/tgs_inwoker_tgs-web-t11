@@ -13,7 +13,7 @@ const StyleButton = styled.div`
   height: 93px;
   border-radius: 20px;
   border: solid 1px #ffffff;
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.wapPrimary ? theme.wapPrimary : theme.primary};
   box-shadow: 0px 2px 5px 3px rgba(177, 177, 177, 1);
 `;
 

@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import i18n from "../../utils/i18n";
 import { AppHistory } from "../../history/History";
+import config from "../../config/config";
 const StyledDialog = withStyles({
   root: {
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
@@ -79,6 +80,115 @@ const TheButton = styled.div`
   box-shadow: 0 4px 6px -1px rgb(0 0 0/0.1), 0 2px 4px -2px rgb(0 0 0/0.1);
 `;
 
+const CustomContainer = styled.div`
+  width: 80vw;
+  background: transparent;
+  background-attachment: fixed;
+  background-position: center;
+  display: flex;
+  padding: 30px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`;
+const CustomEmptyHeader = styled.div`
+  width: 80vw;
+  height: 16vh;
+  background: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/resource/T${config.wapVersion}/dialog-header.png`})
+    no-repeat;
+  background-size: 80vw 16vh;
+  padding: 6vh 6vw;
+  font-size: 3em;
+  font-weight: bold;
+  font-style: italic;
+  color: #fff;
+  text-shadow: 0 0 10px #222;
+`;
+const CustomHeaderImage = styled.div`
+  width: 80vw;
+  height: 18vh;
+  position: absolute;
+  top: -1vh;
+  background: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/resource/T${config.wapVersion}/dialog-header-image.png`})
+    no-repeat;
+  background-size: contain;
+  background-position: right;
+  filter: drop-shadow(-1px -2px 5px #222);
+`;
+const CustomTitleContainer = styled(TitleContainer)`
+  color: #fff;
+  font-style: italic;
+  font-size: 30px;
+  margin: 15px auto 10px;
+`;
+const CustomBodyContainer = styled.div`
+  width: 80vw;
+  height: 30vh;
+  text-align: center;
+  background: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/resource/T${config.wapVersion}/dialog-body.png`})
+    no-repeat;
+  background-size: 80vw 30vh;
+  margin-top: -10px;
+`;
+const CustomFormContainer = styled.div`
+  margin: 0 auto;
+  padding: 2em;
+  width: 70vw;
+  font-size: 22px;
+  text-align: justify;
+  overflow: auto;
+  height: 22vh;
+  background: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/resource/T${config.wapVersion}/dialog-content.png`})
+    no-repeat;
+  background-size: 70vw 22vh;
+  color: #fff;
+`;
+
+const ContainerSwitcher = (props) => {
+  if (props.isCustom)
+    return (
+      <CustomContainer>
+        <CustomEmptyHeader>WELCOME</CustomEmptyHeader>
+        <CustomHeaderImage></CustomHeaderImage>
+        <CustomBodyContainer>{props.children}</CustomBodyContainer>
+      </CustomContainer>
+    );
+  else
+    return (
+      <Container>
+        {props.children}{" "}
+        <CloseButton onClick={props.onClose}>
+          {i18n.t("common.confirm")}
+        </CloseButton>
+      </Container>
+    );
+};
+
+const TitleSwitcher = (props) => {
+  if (props.isCustom)
+    return <CustomTitleContainer>{props.children}</CustomTitleContainer>;
+  else return <TitleContainer>{props.children}</TitleContainer>;
+};
+
+const FormContainerSwitcher = (props) => {
+  if (props.isCustom)
+    return (
+      <CustomFormContainer
+        dangerouslySetInnerHTML={props.dangerouslySetInnerHTML}
+      ></CustomFormContainer>
+    );
+  else
+    return (
+      <FormContainer
+        dangerouslySetInnerHTML={props.dangerouslySetInnerHTML}
+      ></FormContainer>
+    );
+};
+
 class PopupAnnouncement extends Component {
   handlePromotionClick = (id) => {
     AppHistory.push({
@@ -86,12 +196,15 @@ class PopupAnnouncement extends Component {
     });
     this.props.onClose();
   };
+
   render() {
     return (
       <StyledDialog open={this.props.open} onClose={this.props.onClose}>
-        <Container>
+        <ContainerSwitcher isCustom={this.props.isCustom} onClose={this.props.onClose}>
           <div className="clear"></div>
-          <TitleContainer>{this.props.header}</TitleContainer>
+          <TitleSwitcher isCustom={this.props.isCustom}>
+            {this.props.header}
+          </TitleSwitcher>
           {this.props.type === "promo" ? (
             <ContentContainer>
               {this.props.content.map((data, index) => {
@@ -109,16 +222,17 @@ class PopupAnnouncement extends Component {
               })}
             </ContentContainer>
           ) : (
-            <FormContainer
+            <FormContainerSwitcher
+              isCustom={this.props.isCustom}
               dangerouslySetInnerHTML={{
                 __html: this.props.text.replace(/\n/g, "<br />"),
               }}
-            ></FormContainer>
+            ></FormContainerSwitcher>
           )}
-          <CloseButton onClick={this.props.onClose}>
+          {/* <CloseButton onClick={this.props.onClose}>
             {i18n.t("common.confirm")}
-          </CloseButton>
-        </Container>
+          </CloseButton> */}
+        </ContainerSwitcher>
       </StyledDialog>
     );
   }

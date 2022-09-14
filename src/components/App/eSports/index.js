@@ -142,7 +142,7 @@ class ESports extends Component {
           >
             {this.state.list
               .slice(0, 4)
-              .reverse()
+
               .map((item, index) => {
                 return (
                   <ImageWrapper maintenance={item.status != 0}>

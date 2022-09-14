@@ -108,110 +108,112 @@ const Arrow = styled.img`
   pointer-events: auto;
 `;
 
-const SlotGenerator = React.memo(({ title, platform, type, commonprops }) => {
-  var settings = {
-    slidesToShow: 4,
-    slidesToScroll: 4,
-  };
-  const sliderRef = useRef();
+const SlotGenerator = React.memo(
+  ({ title, platform, type, commonprops, list }) => {
+    var settings = {
+      slidesToShow: 4,
+      slidesToScroll: 4,
+    };
+    const sliderRef = useRef();
 
-  const GameContainer = ({ name, img, trigger }) => {
-    return (
-      <ImagePiece>
-        <TheStar></TheStar>
-        <GameBanner>
-          <GameImage img={img} />
-          <GameTitle onClick={trigger}>{name}</GameTitle>
-        </GameBanner>
-      </ImagePiece>
-    );
-  };
+    const GameContainer = ({ name, img, trigger }) => {
+      return (
+        <ImagePiece>
+          <TheStar></TheStar>
+          <GameBanner>
+            <GameImage img={img} />
+            <GameTitle onClick={trigger}>{name}</GameTitle>
+          </GameBanner>
+        </ImagePiece>
+      );
+    };
 
-  const ArrowButton = ({ direction, where }) => {
-    return (
-      <ButtonWrapper>
-        <Overlay
-          onClick={() => {
-            goto(where);
-          }}
-        >
-          <Arrow
-            src={
-              process.env.PUBLIC_URL +
-              `/assets/images/pcHomePage/${direction}.png`
-            }
-          />
-        </Overlay>
-      </ButtonWrapper>
-    );
-  };
+    const ArrowButton = ({ direction, where }) => {
+      return (
+        <ButtonWrapper>
+          <Overlay
+            onClick={() => {
+              goto(where);
+            }}
+          >
+            <Arrow
+              src={
+                process.env.PUBLIC_URL +
+                `/assets/images/pcHomePage/${direction}.png`
+              }
+            />
+          </Overlay>
+        </ButtonWrapper>
+      );
+    };
 
-  const goto = (direction) => {
-    if (direction === "prev") {
-      sliderRef.current.slickPrev();
-    } else {
-      sliderRef.current.slickNext();
-    }
-  };
-
-  const [content, setContent] = useState("");
-
-  useEffect(() => {
-    GameService.GetGameList(platform, type).then((result) => {
-      if (result.IsSuccess) {
-        setContent(result.data);
+    const goto = (direction) => {
+      if (direction === "prev") {
+        sliderRef.current.slickPrev();
+      } else {
+        sliderRef.current.slickNext();
       }
-    });
-  }, []);
+    };
 
-  const handleJoinGameClick = (gpcode, gpid, gametype) => {
-    const type =
-      gametype === GameTypeEnum.FISH
-        ? "fish"
-        : gametype === GameTypeEnum.SLOT
-        ? "slots"
-        : "electron";
-    if (commonprops.token) {
-      Common.closePreviousPopup();
+    const [content, setContent] = useState("");
 
-      AppHistory.push(`/${i18n.language}/${type}/play/${gpcode}/${gpid}`);
-    } else {
-      commonprops.showLogin(true);
-    }
-  };
+    useEffect(() => {
+      //   GameService.GetGameList(platform, type).then((result) => {
+      //     if (result.IsSuccess) {
+      //       setContent(result.data);
+      //     }
+      //   });
+    }, []);
 
-  return (
-    <SlotContent>
-      <TitleGapper>
-        <TitleHolder>{title}</TitleHolder>
-      </TitleGapper>
-      <GameList>
-        <ArrowButton direction="left" where="prev" />
+    const handleJoinGameClick = (gpcode, gpid, gametype) => {
+      const type =
+        gametype === GameTypeEnum.FISH
+          ? "fish"
+          : gametype === GameTypeEnum.SLOT
+          ? "slots"
+          : "electron";
+      if (commonprops.token) {
+        Common.closePreviousPopup();
 
-        <Slider {...settings} ref={sliderRef}>
-          {content &&
-            content.slice(0, 10).map((data, index) => {
-              return (
-                <GameContainer
-                  key={index}
-                  name={data.name}
-                  img={`${
-                    config.sourceUrl
-                  }${data.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
-                    data.code
-                  }.jpg`}
-                  trigger={() =>
-                    handleJoinGameClick(data.gpcode, data.id, type)
-                  }
-                />
-              );
-            })}
-        </Slider>
+        AppHistory.push(`/${i18n.language}/${type}/play/${gpcode}/${gpid}`);
+      } else {
+        commonprops.showLogin(true);
+      }
+    };
 
-        <ArrowButton direction="right" where="next" />
-      </GameList>
-    </SlotContent>
-  );
-});
+    return (
+      <SlotContent>
+        <TitleGapper>
+          <TitleHolder>{i18n.t(title)}</TitleHolder>
+        </TitleGapper>
+        <GameList>
+          <ArrowButton direction="left" where="prev" />
+
+          <Slider {...settings} ref={sliderRef}>
+            {list &&
+              list.map((data, index) => {
+                return (
+                  <GameContainer
+                    key={index}
+                    name={data.name}
+                    img={`${
+                      config.sourceUrl
+                    }${data.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+                      data.code
+                    }.jpg`}
+                    trigger={() =>
+                      handleJoinGameClick(data.gpcode, data.id, data.type)
+                    }
+                  />
+                );
+              })}
+          </Slider>
+
+          <ArrowButton direction="right" where="next" />
+        </GameList>
+      </SlotContent>
+    );
+  }
+);
 
 export default SlotGenerator;

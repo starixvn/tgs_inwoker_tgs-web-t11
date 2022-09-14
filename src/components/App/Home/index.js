@@ -42,9 +42,13 @@ const MarqueeContainer = styled.div`
 const SectionContainer = styled.div`
   background: url(${BGJPG}) no-repeat;
   background-position: top;
-  background-size: cover;
+  background-size: contain;
+  background-
   width: 100%;
   min-height: 1200px;
+  background-position-x: -45px;
+  display: flex;
+  justify-content: center;
 `;
 const FirstSection = styled.div`
   width: 1280px;
@@ -234,9 +238,11 @@ class Home extends Component {
       <HomeContainer>
         <SliderContainer>
           <Slider list={this.props.ui.board_list}></Slider>
-          <MarqueeContainer>
-            <Marquee text={this.props.ui.marqueeText}></Marquee>
-          </MarqueeContainer>
+          {!config.features.HideMarquee && (
+            <MarqueeContainer>
+              <Marquee text={this.props.ui.marqueeText}></Marquee>
+            </MarqueeContainer>
+          )}
         </SliderContainer>
         <SectionContainer>
           <JackpotSection

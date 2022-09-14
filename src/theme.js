@@ -552,27 +552,33 @@ export const wapT10 = {
 
 export const wapT11 = {
   variant: "red",
-  loginBody: "#fff",
-  loginText: "#404040",
+  loginBody: `url(${
+    process.env.PUBLIC_URL + `/assets/images/wapp/resource/T11/loginbg.png`
+  }) no-repeat center center / cover`,
+  loginText: "#fff",
   primary: "#0b1014",
-  primaryRgb: "11, 16, 20",
+  primaryRgb: "213, 38, 98",
   primaryText: "#fff",
-  primaryGradient: "#91030c",
-  primaryGradientRgb: "145, 3, 12",
+  primaryGradient: "#d52662",
+  primaryGradientRgb: "213, 38, 98",
   primaryHightlight: "#fde73f",
   secondary: "#404040",
   secondaryText: "rgba(0,0,0,0.5)",
   tertiary: "rgba(255, 255, 255, 1)",
   tertiaryText: "rgba(255, 255, 255, 0.5)",
   //new addition to compensate wap-t2
-  appbar: "linear-gradient(to top, #91030c, #c40511)",
+  appbar: "#d52662",
   buttonBackground: "#fff",
   buttonText: "#fff",
   buttonText2: "#000",
-  bottomnav: "#f5f5f5",
-  bottomNavAction: "#404040",
-  body: "#F0EFF5",
-  bodyBackground: "#F0EFF5",
+  bottomnav: "#d52662",
+  bottomNavAction: "#fff",
+  body: `url(${
+    process.env.PUBLIC_URL + `/assets/images/wapp/resource/T11/bodybg.png`
+  })`,
+  bodyBackground: `url(${
+    process.env.PUBLIC_URL + `/assets/images/wapp/resource/T11/bodybg.png`
+  })`,
   supportBg: `url(${
     process.env.PUBLIC_URL + `/assets/images/wapp/resource/T2/supportbg.png`
   })
@@ -582,12 +588,19 @@ export const wapT11 = {
   pcHeaderTextHover: "#fde73f",
   pcHeaderRightMenu: "#f6f6f6",
   pcHeaderRightMenuHover: "#d52662",
-
+  gamelisterOriginalText: "#f499b9",
+  gamelisterSelectedText: "#fff",
+  gamelisterBg:
+    "linear-gradient(to right, rgb(216, 42, 102), rgba(251,91,145))",
   popoverBackground: "rgba(255,255,255,0.95)",
   popoverGameTypeText: "#c40511",
   popoverSubWalletText: "#000",
 
+  wapMarqueeBg: "#d5266275",
+  wapMarqueeText: "#fff",
   accent: "#d52662",
+  wapPrimary: "#d52662",
+  wapSecondary: "#fff",
 };
 
 export const themeList = {

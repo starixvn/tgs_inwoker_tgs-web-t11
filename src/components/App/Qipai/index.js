@@ -162,7 +162,6 @@ class Qipai extends Component {
                 return item.type == GameTypeEnum.QIPAI;
               })
               .slice(0, 4)
-              .reverse()
 
               .map((item, index) => {
                 return (

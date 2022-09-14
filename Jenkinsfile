@@ -6,11 +6,15 @@ pipeline {
 	agent any
 	environment {
         TAG = sh(script: "echo `date +%Y-%m%d-%H%M`", returnStdout: true).trim()
-        Registry = "registry.gitlab.com/rayprosoft/turnkey-gaming-system/"
-        GitUrl = "gitlab.com/cjennhong/tgs-web.git"
-        ImageTagUrl = "https://gitlab.com/api/v4/projects/20478010/registry/repositories/2163343/tags"
-        gitlab_user_pwd = credentials('gitlab-user-pwd')
-        Image = "lobby-t1"
+		GitUrl = "gitlab.com/inwoker/tgs/tgs-web-t11.git"
+        Registry = "pgtgs/"
+        LobbyName = "lobby-t11"
+		ApiKey = "I7nKiimrZQOqnJ6ryjUw74c0Hi64KC6Myunhob4cHh8VOUIuZh4p63czefxyyzbZ"
+		Brand = "T11"
+		Theme = "wapT11" 
+		Template = "11"
+		DefaultCurrency = "PHP"
+		DefaultLanguage = "en-US"
     }
 	
     stages {		    	
@@ -18,14 +22,13 @@ pipeline {
             steps {
                 cleanWs()
                 checkout scm
-                // rm -rf package-lock.json
-                sh "docker login registry.gitlab.com -u ${gitlab_user_pwd_USR} -p ${gitlab_user_pwd_PSW}"
                 sh "echo 'Branch: ${env.GIT_BRANCH}'";
                 script {
                     switch(env.GIT_BRANCH)
                     {
                         case ['master', 'origin/master']:
                             env.kube_ns = "prod";
+							env.domain = "t11.srvptt.com";
                             env.k8s_config = 'stag-k8s-config';
                             sh "git config --file=.gitmodules submodule.src/components/Wap.branch master";
                             sh "git config --file=.gitmodules submodule.src/components/App/Account.branch master";
@@ -35,6 +38,7 @@ pipeline {
                             break;
                         case ['release/current', 'origin/release/current']:
                             env.kube_ns = "staging";
+							env.domain = "stg-t11.rpgp.cc";
                             env.k8s_config = 'stag-k8s-config';
                             sh "git config --file=.gitmodules submodule.src/components/Wap.branch release/current";
                             sh "git config --file=.gitmodules submodule.src/components/App/Account.branch release/current";
@@ -49,13 +53,12 @@ pipeline {
                             sh "git submodule sync";
                             sh "git submodule update --remote";
                             env.kube_ns = "dev";
+							env.domain = "dev-t11.rpgp.cc";
                             env.k8s_config = 'k8s-kube-config' 
                             break;
                     }
                     TAG = env.kube_ns + '-' + TAG
-				    MergedTag = 'merged-' + TAG
                     message += "\nBranch: ${env.GIT_BRANCH}" 
-                    message += "\nImage: ${Image}"
                     message += "\nTag: ${TAG}"
                     message += "\nEnv: $env.kube_ns"
                     env.commit_url = "${env.GIT_URL}".replace(".git","/-/commit/") + "${env.GIT_COMMIT}"
@@ -68,8 +71,7 @@ pipeline {
                         envItems.each { key, value -> 
                             env."tgs_${key}" = value;
                         }
-                        componentArray = "${env.tgs_lobby_t1_components}".split(",")
-                        componentArrayMerged = "${env.tgs_lobby_t1_components_merged}".split(",")
+                        componentArray = "${env.tgs_lobby_t11_components}".split(",")
                     }
                 }
 
@@ -79,16 +81,71 @@ pipeline {
         }	
         stage('Docker Build') {   
             steps {	  			    
-                sh "docker build -t ${Registry}${Image}:${TAG} ."
-                sh "docker tag ${Registry}${Image}:${TAG} ${Registry}${Image}:$env.kube_ns"
+                sh "docker build -t ${Registry}${LobbyName}:${TAG} ."
             }
         }			
         stage('Docker Push') {   
             steps {	  
-                sh "docker push ${Registry}${Image}:${TAG}"
-                sh "docker push ${Registry}${Image}:$env.kube_ns"
+                sh "docker push ${Registry}${LobbyName}:${TAG}"
             }
         }
+		
+		stage('Deploy Template') {
+			steps {
+				script {
+					withKubeConfig([credentialsId: env.k8s_config]) {
+
+						def backendApi= 'operator-api';
+			
+						message += "name: ${LobbyName} \n" 
+						message += "language: ${DefaultLanguage} \n"
+						message += "currency: ${DefaultCurrency} \n"
+						message += "env: $env.kube_ns \n" 
+					   
+					
+						sh """
+							 helm template deployment \
+								--set nameOverride=${LobbyName} \
+								--set fullnameOverride=${LobbyName} \
+								--set .Chart.Name=lobby \
+								--set lobbyName=${LobbyName}  \
+								--set brand=${Brand}  \
+								--set defaultLanguage=${DefaultLanguage}  \
+								--set apiKey=${ApiKey}  \
+								--set currency=${DefaultCurrency}  \
+								--set theme=${Theme} \
+								--set template=${Template} \
+								--set image.repository=${Registry}${env.LobbyName} \
+								--set brandToken=${tgs_gpi_brand_token} \
+								--set image.tag=${TAG} \
+								--set domain=$env.domain \
+								--set namespace=$env.kube_ns --debug
+						"""
+						
+						sh """
+							helm template deployment \
+								 --set nameOverride=${LobbyName} \
+								--set fullnameOverride=${LobbyName} \
+								--set .Chart.Name=lobby \
+								--set lobbyName=${LobbyName}  \
+								--set brand=${Brand}  \
+								--set defaultLanguage=${defaultLanguage}  \
+								--set apiKey=${ApiKey}   \
+								--set currency=${DefaultCurrency}  \
+							    --set theme=${Theme} \
+								--set template=${Template} \
+								--set image.repository=${Registry}${LobbyName} \
+								--set brandToken=${tgs_gpi_brand_token} \
+								--set image.tag=${TAG} \
+								--set domain=$env.domain \
+								--set namespace=$env.kube_ns \
+								| kubectl -n $env.kube_ns  apply -f - 
+						"""
+					}				
+				}
+			}
+        }
+		
 		stage('Deploy') {
             when {
                 expression {
@@ -110,36 +167,16 @@ pipeline {
                     withKubeConfig([credentialsId: env.k8s_config]) {
                         message += "\nComponent:"
 
-						if (env.tgs_lobby_t1_components!="") {
+						if (env.tgs_lobby_t11_components!="") {
 							for (i = 0;i < componentArray.length; i++) {
 								message += "\n    ${componentArray[i]}"
-								sh "kubectl set image deployment/${componentArray[i]} ${componentArray[i]}=${Registry}${Image}:${TAG} --record -n $env.kube_ns"
+								sh "kubectl set image deployment/${componentArray[i]} ${componentArray[i]}=${Registry}${LobbyName}:${TAG} --record -n $env.kube_ns"
 							}
 						}
                     }
                 }
             }
         }	
-        stage('Purge Cache'){
-            when {
-                expression {
-                    return env.kube_ns == 'prod';
-                }
-            }
-
-            steps {
-                script {   
-                    withCredentials([string(credentialsId: "jenkins-prod-set-permission-token", variable: "token")]) {
-                        response = httpRequest (consoleLogResponseBody: true,
-                                contentType: 'APPLICATION_JSON',
-                                httpMode: 'GET',
-                                url: "https://jenkins.rpgp.cc/view/Support/job/purge-multiple-domains/build?token=${token}",
-                                validResponseCodes: '201')
-                        return response
-                    }
-                }
-            }
-        }
     }
     post {
         success {
