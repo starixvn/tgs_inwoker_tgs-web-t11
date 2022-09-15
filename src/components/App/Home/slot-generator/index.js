@@ -120,11 +120,11 @@ const SlotGenerator = React.memo(
 
     const GameContainer = ({ name, img, trigger }) => {
       return (
-        <ImagePiece>
+        <ImagePiece onClick={trigger}>
           <TheStar></TheStar>
           <GameBanner>
             <GameImage img={img} />
-            <GameTitle onClick={trigger}>{name}</GameTitle>
+            <GameTitle>{name}</GameTitle>
           </GameBanner>
         </ImagePiece>
       );
