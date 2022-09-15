@@ -242,13 +242,15 @@ const JackpotSection = ({ showLogin, token }) => {
       <SlotContainer>
         {recommendedGames.games.map((data, index) => {
           return (
-            <SlotGenerator
-              title={data.title}
-              platform={data.platform}
-              type={data.type}
-              list={data.gameList}
-              commonprops={commonprops}
-            />
+            data.gameList.length > 0 && (
+              <SlotGenerator
+                title={data.title}
+                platform={data.platform}
+                type={data.type}
+                list={data.gameList}
+                commonprops={commonprops}
+              />
+            )
           );
         })}
       </SlotContainer>
