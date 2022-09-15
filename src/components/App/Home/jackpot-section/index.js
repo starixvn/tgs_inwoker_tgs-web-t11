@@ -5,7 +5,6 @@ import { GameTypeEnum } from "../../../../api-services/utils/Enum";
 import Common from "../../../../utils/Common";
 import SlotGenerator from "../slot-generator";
 import Winners from "./winners";
-
 import moment from "moment";
 import {
   jiliSlot,
@@ -14,6 +13,7 @@ import {
   jiliFish,
   jdbFish,
 } from "../../../Wap/Main/Home/scene-1/template11/hardcode";
+import { GameService } from "../../../../api-services/services/GameService";
 
 const JackpotHolder = styled.div`
   height: 1135px;
@@ -144,39 +144,79 @@ const JackpotSection = ({ showLogin, token }) => {
     generateJackpotAmount({ min: 200000, max: 5000000 })
   );
 
-  const recommendedGames = [
-    {
-      title: "JILI.slots",
-      list: jiliSlot,
-      type: GameTypeEnum.SLOT,
-      platform: "JILITF",
-    },
-    {
-      title: "RT.slots",
-      list: rtSlot,
-      type: GameTypeEnum.SLOT,
-      platform: "RTTF",
-    },
-    {
-      title: "JDB.slots",
-      list: jdbSlot,
-      type: GameTypeEnum.SLOT,
-      platform: "JDB",
-    },
+  const [recommendedGames, setRecommendedGames] = useState({
+    games: [
+      {
+        title: "JILITF.slots",
+        list: jiliSlot,
+        type: GameTypeEnum.SLOT,
+        platform: "JILITF",
+        gameList: [],
+      },
+      {
+        title: "RTTF.slots",
+        list: rtSlot,
+        type: GameTypeEnum.SLOT,
+        platform: "RTTF",
+        gameList: [],
+      },
+      {
+        title: "JDBTF.slots",
+        list: jdbSlot,
+        type: GameTypeEnum.SLOT,
+        platform: "JDBTF",
+        gameList: [],
+      },
 
-    {
-      title: "JILI.fish",
-      list: jiliFish,
-      type: GameTypeEnum.FISH,
-      platform: "JILITF",
-    },
-    {
-      title: "JDB.fish",
-      list: jdbFish,
-      type: GameTypeEnum.FISH,
-      platform: "JDB",
-    },
-  ];
+      {
+        title: "JILITF.fish",
+        list: jiliFish,
+        type: GameTypeEnum.FISH,
+        platform: "JILITF",
+        gameList: [],
+      },
+      {
+        title: "JDBTF.fish",
+        list: jdbFish,
+        type: GameTypeEnum.FISH,
+        platform: "JDBTF",
+        gameList: [],
+      },
+    ],
+    isInitialized: false,
+  });
+
+  useEffect(() => {
+    if (!recommendedGames.isInitialized) {
+      getGameList();
+    }
+  });
+
+  const getGameList = () => {
+    var temp = recommendedGames;
+    temp.games.map(async (game, index) => {
+      GameService.GetGameList(game.platform, game.type).then((response) => {
+        if (response.IsSuccess) {
+          var data = response.data;
+          game.list.map((item) => {
+            var index = data.findIndex((item2) => item2.code === item.code);
+            console.log(index);
+            if (index >= 0 && data[index] !== null) {
+              game.gameList.push(data[index]);
+              game.gameList.filter((item, index) => {
+                return game.gameList.indexOf(item) === index;
+              });
+            }
+            return null;
+          });
+        }
+      });
+      return null;
+    });
+    temp.isInitialized = true;
+    setRecommendedGames(temp);
+    console.log(temp)
+  };
 
   return (
     <div>
@@ -200,13 +240,13 @@ const JackpotSection = ({ showLogin, token }) => {
         </JackpotContentWorkingSpace>
       </JackpotHolder>
       <SlotContainer>
-        {recommendedGames.map((data, index) => {
+        {recommendedGames.games.map((data, index) => {
           return (
             <SlotGenerator
               title={data.title}
               platform={data.platform}
               type={data.type}
-              list={data.list}
+              list={data.gameList}
               commonprops={commonprops}
             />
           );
