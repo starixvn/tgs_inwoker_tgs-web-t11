@@ -59,7 +59,7 @@ const TopContent = styled.div`
 `;
 
 const CurrencyHolder = styled.div`
-  padding-top: 30px;
+  padding-top: 35px;
 `;
 
 const BottomLeftcontent = styled.div`
@@ -80,8 +80,10 @@ const TextHolder = styled.div`
   ${({ hide }) => {
     return hide
       ? `
-   font-size: 20px;
+   font-size: 30px;
    width: 20px;
+   padding: 0 0 0 0px;
+   width: 10px;
   
   `
       : ` background: #000;font-size: 50px;`;
@@ -215,7 +217,7 @@ const JackpotSection = ({ showLogin, token }) => {
     });
     temp.isInitialized = true;
     setRecommendedGames(temp);
-    console.log(temp)
+    console.log(temp);
   };
 
   return (
