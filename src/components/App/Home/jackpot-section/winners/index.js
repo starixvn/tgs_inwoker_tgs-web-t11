@@ -10,6 +10,7 @@ const ContentHolder = styled.div`
 
 const Title = styled.div`
   color: #fff;
+  padding-left: 15px;
 `;
 
 const WinnerList = styled.div`
