@@ -52,6 +52,7 @@ const TopContent = styled.div`
   width: 664px;
   right: 130px;
   top: 75px;
+
   font-size: 75px;
   align-items: center;
   letter-spacing: 14px;
@@ -74,9 +75,12 @@ const BottomRightContent = styled.div`
 
 const TextHolder = styled.div`
   border-radius: 8px;
-  padding: 0 5px 0 10px;
+  padding: 0 0 0 10px;
   text-align: center;
   font-size: 60px;
+  height: 72px;
+  display: flex;
+
   ${({ hide }) => {
     return hide
       ? `
@@ -84,10 +88,12 @@ const TextHolder = styled.div`
    width: 20px;
    padding: 0 0 0 0px;
    width: 10px;
+   align-items: flex-end;
   
   `
-      : ` background: #000;font-size: 50px;`;
-  }}
+      : ` background: #000;font-size: 55px;
+      align-items: center;`;
+  }};
 `;
 
 const TextContent = styled.div`
@@ -118,7 +124,7 @@ const JackpotSection = ({ showLogin, token }) => {
       return (
         <TextContent>
           <TextHolder hide={element === "," || element === "."}>
-            {element}
+            <div>{element}</div>
           </TextHolder>
         </TextContent>
       );
