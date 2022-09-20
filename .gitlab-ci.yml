@@ -1,0 +1,10 @@
+include:
+  - project: 'inwoker/tgs/tgs-gitlab-ci-jobs'
+    ref: main
+    file: '/templates/.lobby-deployment.yaml'
+
+variables:
+  ImageName: pgtgs/lobby-t11
+  components_dev: lobby-t11
+  components_staging:
+  components_prod: lobby-gpi-t11
