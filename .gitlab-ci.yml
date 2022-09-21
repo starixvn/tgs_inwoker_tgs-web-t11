@@ -8,3 +8,15 @@ variables:
   components_dev: lobby-t11
   components_staging:
   components_prod: lobby-gpi-t11
+
+build:
+  extends: .build
+
+deploy-dev:
+  extends: .deploy-dev
+
+deploy-staging:
+  extends: .deploy-staging
+      
+deploy-prod:
+  extends: .deploy-prod
