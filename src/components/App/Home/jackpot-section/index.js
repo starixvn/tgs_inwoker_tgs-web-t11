@@ -208,7 +208,6 @@ const JackpotSection = ({ showLogin, token }) => {
           var data = response.data;
           game.list.map((item) => {
             var index = data.findIndex((item2) => item2.code === item.code);
-            console.log(index);
             if (index >= 0 && data[index] !== null) {
               game.gameList.push(data[index]);
               game.gameList.filter((item, index) => {
