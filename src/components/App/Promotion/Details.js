@@ -348,12 +348,23 @@ class PromotionDetails extends Component {
                 dangerouslySetInnerHTML={{
                   __html:
                     "<div>" +
-                    (() =>
-                      (!checkIfLocalizationIsEmpty &&
-                        this.state.details.localization[i18n.language]
-                          .content) ||
-                      this.state.details.content ||
-                      "")() +
+                    (() => {
+                      if (
+                        !checkIfLocalizationIsEmpty &&
+                        (this.state.details.localization[i18n.language] !==
+                          "" ||
+                          this.state.details.localization[i18n.language] !==
+                            null)
+                      ) {
+                        return this.state.details.localization[i18n.language]
+                          .content
+                          ? this.state.details.localization[i18n.language]
+                              .content
+                          : this.state.details.content;
+                      } else {
+                        return this.state.details.content;
+                      }
+                    })() +
                     "</div>",
                 }}
               ></PromoDesc>
