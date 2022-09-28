@@ -116,8 +116,8 @@ const Winners = React.memo(({ title }) => {
     "TreasureBowl",
   ];
 
-  var min = 1000;
-  var max = 20000;
+  var min = 5;
+  var max = 5000;
 
   const [winnerList, setWinnerList] = useState([]);
   var newList = [...winnerList];
