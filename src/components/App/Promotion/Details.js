@@ -163,11 +163,13 @@ class PromotionDetails extends Component {
     var term = "";
     if (details) {
       if (
-        details.localization !== null &&
-        details.localization.terms &&
-        details.localization.terms !== null
+        JSON.stringify(details.localization) !== "{}" &&
+        (details.localization[i18n.language] !== "" ||
+          details.localization[i18n.language] !== null)
       ) {
-        term = details.localization.terms || "";
+        term = details.localization[i18n.language].terms
+          ? details.localization[i18n.language].terms
+          : details.terms;
       } else {
         term = details.terms || "";
       }
@@ -356,13 +358,13 @@ class PromotionDetails extends Component {
                           this.state.details.localization[i18n.language] !==
                             null)
                       ) {
-                        return this.state.details.localization[i18n.language]
+                        return (this.state.details.localization[i18n.language]
                           .content
                           ? this.state.details.localization[i18n.language]
                               .content
-                          : this.state.details.content;
+                          : this.state.details.content) ?? "";
                       } else {
-                        return this.state.details.content;
+                        return this.state.details.content ?? "";
                       }
                     })() +
                     "</div>",
