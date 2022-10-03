@@ -15,6 +15,10 @@ import {
 } from "../../../Wap/Main/Home/scene-1/template11/hardcode";
 import { GameService } from "../../../../api-services/services/GameService";
 
+const Container = styled.div`
+  width: 1280px;
+  transform: translateX(50px);
+`;
 const JackpotHolder = styled.div`
   height: 1135px;
   background: url(${process.env.PUBLIC_URL +
@@ -226,7 +230,7 @@ const JackpotSection = ({ showLogin, token }) => {
   };
 
   return (
-    <div style={{transform: "translateX(50px)"}}>
+    <Container>
       <JackpotHolder>
         <JackpotGif
           src={
@@ -261,7 +265,7 @@ const JackpotSection = ({ showLogin, token }) => {
           );
         })}
       </SlotContainer>
-    </div>
+    </Container>
   );
 };
 
