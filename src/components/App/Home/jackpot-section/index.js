@@ -226,7 +226,7 @@ const JackpotSection = ({ showLogin, token }) => {
   };
 
   return (
-    <div>
+    <div style={{transform: "translateX(50px)"}}>
       <JackpotHolder>
         <JackpotGif
           src={
