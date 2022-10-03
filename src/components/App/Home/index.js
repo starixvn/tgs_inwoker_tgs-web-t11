@@ -42,8 +42,7 @@ const MarqueeContainer = styled.div`
 const SectionContainer = styled.div`
   background: url(${BGJPG}) no-repeat;
   background-position: top;
-  background-size: contain;
-  background-
+  background-size: auto;
   width: 100%;
   min-height: 1200px;
 
