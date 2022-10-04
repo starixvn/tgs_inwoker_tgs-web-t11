@@ -14,19 +14,22 @@ import {
   jdbFish,
 } from "../../../Wap/Main/Home/scene-1/template11/hardcode";
 import { GameService } from "../../../../api-services/services/GameService";
+import BGJPG from "../../../../assets/images/home/section/bg.png";
 
 const Container = styled.div`
-  width: 1280px;
-  transform: translateX(50px);
+  width: 100%;
+  //transform: translateX(50px);
+  background-image: url(${process.env.PUBLIC_URL +
+    "/assets/images/wapp/home/T11/jackpot.gif"}),
+    url(${process.env.PUBLIC_URL + "/assets/images/pcHomePage/jackpot.png"}),
+    url(${BGJPG});
+  background-position: calc(50% + 7px) 270px, calc(50% + 50px) 187px, top;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size: 464px 190px, 1350px 785px, auto;
 `;
+
 const JackpotHolder = styled.div`
   height: 1135px;
-  background: url(${process.env.PUBLIC_URL +
-  "/assets/images/pcHomePage/jackpot.png"});
-  background-size: 105%;
-  background-position: center;
-
-  background-repeat: no-repeat;
   position: relative;
   margin-bottom: 0px;
 `;
@@ -36,15 +39,14 @@ const JackpotContentWorkingSpace = styled.div`
   height: 512px;
   position: relative;
   top: 365px;
-  left: 90px;
   display: grid;
   grid-auto-columns: 1fr;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 215px 1fr;
-  grid-template-areas: 
-  "topContent topContent"
-  "bottomLeft bottomRight"; 
-}
+  grid-template-areas:
+    "topContent topContent"
+    "bottomLeft bottomRight";
+  margin: 0 auto;
 `;
 
 const TopContent = styled.div`
@@ -226,17 +228,11 @@ const JackpotSection = ({ showLogin, token }) => {
     });
     temp.isInitialized = true;
     setRecommendedGames(temp);
-    console.log(temp);
   };
 
   return (
     <Container>
       <JackpotHolder>
-        <JackpotGif
-          src={
-            process.env.PUBLIC_URL + "/assets/images/wapp/home/T11/jackpot.gif"
-          }
-        />
         <JackpotContentWorkingSpace>
           <TopContent>
             <CurrencyHolder>₱</CurrencyHolder>{" "}

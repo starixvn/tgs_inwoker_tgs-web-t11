@@ -17,7 +17,6 @@ import { GameTypeEnum } from "../../../api-services/utils/Enum";
 import i18n from "../../../utils/i18n";
 import ThirdSection from "./ThirdSection";
 import FourthSection from "./FourthSection";
-import BGJPG from "../../../assets/images/home/section/bg.png";
 import TextBgPNG from "../../../assets/images/home/section/text-bg.png";
 import { Grid } from "@material-ui/core";
 
@@ -40,9 +39,6 @@ const MarqueeContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 const SectionContainer = styled.div`
-  background: url(${BGJPG}) no-repeat;
-  background-position: top;
-  background-size: auto;
   width: 100%;
   min-height: 1200px;
 
