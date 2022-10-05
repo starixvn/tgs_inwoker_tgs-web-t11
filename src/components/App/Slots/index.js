@@ -53,18 +53,22 @@ const Container = styled.div`
 `;
 
 const InnerWrap = styled.div`
-  width: 1007px;
+  width: 1280px;
   min-height: 580px;
   border-radius: 30px;
 
   background: rgba(255, 255, 255, 0.8);
 
   margin: 10px auto 50px auto;
-  padding: 16px 46px;
+  padding: 16px 90px;
   box-sizing: border-box;
   overflow-y: auto;
 `;
-const GameTabContainer = styled.div``;
+const GameTabContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 5px;
+`;
 
 const GameTab = styled.div`
   background: url(${(props) =>
@@ -106,7 +110,6 @@ const GameTabButton = styled.div`
   height: 76px;
   border-radius: 10px;
   background-color: #eeeeee;
-  margin-left: 5px;
   margin-top: 5px;
   position: relative;
   float: left;
@@ -170,7 +173,7 @@ const GameTabAll = styled(GameTabButton)`
 
 const GameSubFilterContainer = styled.div`
   padding-left: 20px;
-  width: 908px;
+  width: 1100px;
   height: 42px;
   border-top: 1px solid #36437d;
   border-bottom: 1px solid #36437d;
@@ -272,8 +275,8 @@ const SearchFilterItemInput = styled.input`
 `;
 
 const GameListContainer = styled.div`
-  width: 908px;
-  padding: 6px;
+  width: 1100px;
+  padding: 25px;
   background-color: #eaeaea;
 `;
 
@@ -296,7 +299,7 @@ const ItemContainer = styled.div`
   border: solid 1px #fde73f;
   position: relative;
   float: left;
-  margin: 7px;
+  margin: 5px;
   &:hover {
     cursor: pointer;
   }
