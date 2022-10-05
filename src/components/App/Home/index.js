@@ -276,6 +276,7 @@ class Home extends Component {
                     ? row.localization.subject
                     : row.subject
                 }
+                isCustom={true}
               ></PopupAnnouncement>
             );
           }

@@ -16,6 +16,19 @@ const StyledDialog = withStyles({
     },
   },
 })(Dialog);
+const CustomStyledDialog = withStyles({
+  root: {
+    boxShadow: "none",
+    "& .MuiPaper-root": {
+      backgroundColor: "transparent",
+      borderRadius: "15px",
+      maxWidth: "700px",
+      paddingTop: "85px",
+      paddingRight: "50px",
+      boxShadow: "none",
+    },
+  }
+})(Dialog);
 const Container = styled.div`
   width: 506px;
   background: url(${LoginBGPNG}) no-repeat;
@@ -73,6 +86,128 @@ const TheButton = styled.div`
   box-shadow: 0 4px 6px -1px rgb(0 0 0/0.1), 0 2px 4px -2px rgb(0 0 0/0.1);
 `;
 
+const CustomContainer = styled.div`
+  width: 680px;
+  background: transparent;
+  background-attachment: fixed;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`;
+const CustomCloseButton = styled.div`
+  background: url(${process.env.PUBLIC_URL +
+    `/assets/images/pcHomePage/close-button.png`})
+    no-repeat;
+  width: 35px;
+  height: 35px;
+  float: right;
+  &:hover {
+    cursor: pointer;
+  }
+  position: absolute;
+  top: 0;
+  right: 10px;
+`;
+const CustomEmptyHeader = styled.div`
+  width: 680px;
+  height: 187px;
+  background: url(${process.env.PUBLIC_URL +
+    `/assets/images/pcHomePage/dialog-header.png`})
+    no-repeat;
+  background-size: 680px 187px;
+  padding: 60px 30px;
+  font-size: 3em;
+  font-weight: bold;
+  font-style: italic;
+  color: #fff;
+  text-shadow: 0 0 10px #222;
+`;
+const CustomHeaderImage = styled.div`
+  width: 310px;
+  height: 253px;
+  position: absolute;
+  top: 20px;
+  right: -12px;
+  background: url(${process.env.PUBLIC_URL +
+    `/assets/images/pcHomePage/dialog-header-image.png`})
+    no-repeat;
+  background-size: contain;
+  background-position: right;
+  filter: drop-shadow(-1px -5px 5px #222);
+`;
+const CustomTitleContainer = styled(TitleContainer)`
+  color: #fff;
+  font-style: italic;
+  font-size: 30px;
+  margin: 45px auto 12px;
+`;
+const CustomBodyContainer = styled.div`
+  width: 680px;
+  height: 391px;
+  text-align: center;
+  background: url(${process.env.PUBLIC_URL +
+    `/assets/images/pcHomePage/dialog-body.png`})
+    no-repeat;
+  background-size: 680px 391px;
+  margin-top: -10px;
+`;
+const CustomFormContainer = styled.div`
+  margin: 0 auto;
+  padding: 25px;
+  width: 600px;
+  font-size: 22px;
+  text-align: justify;
+  overflow: auto;
+  height: 253px;
+  color: #fff;
+`;
+const DialogSwitcher = (props) => {
+  if (props.isCustom)
+    return <CustomStyledDialog open={props.open} onClose={props.onClose}>{props.children}</CustomStyledDialog>;
+  else return <StyledDialog open={props.open} onClose={props.onClose}>{props.children}</StyledDialog>;
+};
+const ContainerSwitcher = (props) => {
+  if (props.isCustom)
+    return (
+      <CustomContainer>
+        <CustomEmptyHeader>WELCOME</CustomEmptyHeader>
+        <CustomHeaderImage></CustomHeaderImage>
+        <CustomCloseButton onClick={props.onClose}></CustomCloseButton>
+        <CustomBodyContainer>{props.children}</CustomBodyContainer>
+      </CustomContainer>
+    );
+  else
+    return (
+      <Container>
+        <CloseIconContainer
+          viewBox="4 4 16 16"
+          onClick={props.onClose}
+        ></CloseIconContainer>
+        {props.children}
+      </Container>
+    );
+};
+const TitleSwitcher = (props) => {
+  if (props.isCustom)
+    return <CustomTitleContainer>{props.children}</CustomTitleContainer>;
+  else return <TitleContainer>{props.children}</TitleContainer>;
+};
+const FormContainerSwitcher = (props) => {
+  if (props.isCustom)
+    return (
+      <CustomFormContainer
+        dangerouslySetInnerHTML={props.dangerouslySetInnerHTML}
+      ></CustomFormContainer>
+    );
+  else
+    return (
+      <FormContainer
+        dangerouslySetInnerHTML={props.dangerouslySetInnerHTML}
+      ></FormContainer>
+    );
+};
 class PopupAnnouncement extends Component {
   handlePromotionClick = (id) => {
     AppHistory.push({
@@ -82,14 +217,12 @@ class PopupAnnouncement extends Component {
 
   render() {
     return (
-      <StyledDialog open={this.props.open} onClose={this.props.onClose}>
-        <Container>
-          <CloseIconContainer
-            viewBox="4 4 16 16"
-            onClick={this.props.onClose}
-          ></CloseIconContainer>
+      <DialogSwitcher isCustom={this.props.isCustom} open={this.props.open} onClose={this.props.onClose}>
+        <ContainerSwitcher isCustom={this.props.isCustom} onClose={this.props.onClose}>
           <div className="clear"></div>
-          <TitleContainer>{this.props.header}</TitleContainer>
+          <TitleSwitcher isCustom={this.props.isCustom}>
+            {this.props.header}
+          </TitleSwitcher>
           {this.props.type === "promo" ? (
             <ContentContainer>
               {this.props.content
@@ -120,14 +253,15 @@ class PopupAnnouncement extends Component {
                 })}
             </ContentContainer>
           ) : (
-            <FormContainer
+            <FormContainerSwitcher
+              isCustom={this.props.isCustom}
               dangerouslySetInnerHTML={{
                 __html: this.props.text.replace(/\n/g, "<br />"),
               }}
-            ></FormContainer>
+            ></FormContainerSwitcher>
           )}
-        </Container>
-      </StyledDialog>
+        </ContainerSwitcher>
+      </DialogSwitcher>
     );
   }
 }
