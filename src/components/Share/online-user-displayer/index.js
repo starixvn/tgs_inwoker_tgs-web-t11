@@ -28,7 +28,10 @@ const OnlineUserDisplayer = ({ color, size, textAlign, padding }) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  var userRange = randomNumberGenerator(config.features.Home_OnlineUsers.min, config.features.Home_OnlineUsers.max);
+  var userRange = randomNumberGenerator(
+    config.features.Home_OnlineUsers.min,
+    config.features.Home_OnlineUsers.max
+  );
 
   const [totalPlayer, setTotalPlayer] = useState(userRange);
 
@@ -41,7 +44,12 @@ const OnlineUserDisplayer = ({ color, size, textAlign, padding }) => {
   });
 
   return (
-    <OnlineDisplayerText color={color} size={size} textAlign={textAlign} padding={padding}>
+    <OnlineDisplayerText
+      color={color}
+      size={size}
+      textAlign={textAlign}
+      padding={padding}
+    >
       {i18next.t("common.playeronline")}:{" "}
       <OnlineUserText>{totalPlayer}</OnlineUserText>
     </OnlineDisplayerText>
