@@ -116,6 +116,7 @@ const featureList = {
     RouletteNewFlow: false,
     UseAccentColor: true,
     Wap_ShowProfileTransfer: true,
+    HaveVIPFeature: true,
   },
 };
 export default featureList;
