@@ -16,7 +16,8 @@ const Container = styled.div`
   min-height: 770px;
 
   position: relative;
-  background: url(${(props) => process.env.PUBLIC_URL}/assets/images/pcGamePage/live/background.jpg)
+  background: url(${(props) =>
+      process.env.PUBLIC_URL}/assets/images/pcGamePage/live/background.jpg)
     no-repeat center;
 `;
 const GirlImage = styled.div`
@@ -34,9 +35,7 @@ const LeftSlide = styled(ScrollAnimation)`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 `;
-const RightSlide = styled(ScrollAnimation)`
-  display: flex;
-`;
+
 const ItemContainer = styled.div`
   display: flex;
   align-items: center;

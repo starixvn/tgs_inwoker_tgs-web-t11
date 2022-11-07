@@ -2,9 +2,6 @@ import { Grid, Container as MContainer } from "@material-ui/core";
 import React from "react";
 import styled from "styled-components";
 
-import StartGamePNG from "../../../assets/images/start-game.png";
-import StartGameHoverPNG from "../../../assets/images/start-game-hover.png";
-
 import { GameEnum, GameTypeEnum } from "../../../api-services/utils/Enum";
 import i18n from "../../../utils/i18n";
 

@@ -7,8 +7,6 @@ import ScrollAnimation from "react-animate-on-scroll";
 import { SHOW_LOGIN } from "../../../api-services/constant/actionType";
 import { GameTypeEnum } from "../../../api-services/utils/Enum";
 
-import _633SelectedPNG from "../../../assets/images/qipai/633-selectedv2.png";
-
 import i18n from "../../../utils/i18n";
 
 const Container = styled.div`
@@ -17,7 +15,8 @@ const Container = styled.div`
   min-height: 770px;
   padding: 70px 0px;
   position: relative;
-  background: url(${(props) => process.env.PUBLIC_URL}/assets/images/pcGamePage/qipai/background.jpg)
+  background: url(${(props) =>
+      process.env.PUBLIC_URL}/assets/images/pcGamePage/qipai/background.jpg)
     no-repeat center;
 `;
 const GirlImage = styled.div`
@@ -33,9 +32,7 @@ const GirlImage = styled.div`
 const LeftSlide = styled(ScrollAnimation)`
   display: flex;
 `;
-const RightSlide = styled(ScrollAnimation)`
-  display: flex;
-`;
+
 const ItemContainer = styled.div`
   position: absolute;
   left: 50%;
@@ -82,7 +79,7 @@ class Qipai extends Component {
     super(props);
 
     var qipaiList = props.game.homePageGameList.filter((item) => {
-      return item.type == GameTypeEnum.QIPAI;
+      return item.type === GameTypeEnum.QIPAI;
     });
 
     this.state = {
@@ -107,7 +104,7 @@ class Qipai extends Component {
       this.props.game.homePageGameList.length
     ) {
       var qipaiList = this.props.game.homePageGameList.filter((item) => {
-        return item.type == GameTypeEnum.QIPAI;
+        return item.type === GameTypeEnum.QIPAI;
       });
 
       this.setState({
@@ -165,7 +162,7 @@ class Qipai extends Component {
 
               .map((item, index) => {
                 return (
-                  <GameWrapper maintenance={item.status != 0}>
+                  <GameWrapper maintenance={item.status !== 0}>
                     <Maintenance>{i18n.t("transfer.maintenance")}</Maintenance>
                     <GirlImage
                       style={{ float: "right" }}
