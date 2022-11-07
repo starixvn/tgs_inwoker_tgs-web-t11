@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-import {GameService} from "../../../api-services/services/GameService";
+import { GameService } from "../../../api-services/services/GameService";
 import Maintenance from "../../Share/Maintenance";
 import { withSnackbar } from "notistack";
 // try {
 // const channel = new BroadcastChannel('refreshBalance');
 // }catch {
-  
+
 // }
 const Container = styled.iframe`
   width: 100%;

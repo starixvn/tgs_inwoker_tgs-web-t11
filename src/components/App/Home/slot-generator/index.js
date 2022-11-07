@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
-import { GameService } from "../../../../api-services/services/GameService";
+
 import { GameTypeEnum } from "../../../../api-services/utils/Enum";
 import config from "../../../../config/config";
 import { AppHistory } from "../../../../history/History";
@@ -156,16 +156,6 @@ const SlotGenerator = React.memo(
         sliderRef.current.slickNext();
       }
     };
-
-    const [content, setContent] = useState("");
-
-    useEffect(() => {
-      //   GameService.GetGameList(platform, type).then((result) => {
-      //     if (result.IsSuccess) {
-      //       setContent(result.data);
-      //     }
-      //   });
-    }, []);
 
     const handleJoinGameClick = (gpcode, gpid, gametype) => {
       const type =

@@ -5,13 +5,11 @@ import Common from "../../../utils/Common";
 import BtnRedPNG from "../../../assets/images/btn-red.png";
 import BtnRedHoverPNG from "../../../assets/images/btn-red-hover.png";
 
-import {GameService} from "../../../../api-services/services/GameService";
-import {SHOW_LOGIN} from "../../../../api-services/constant/actionType";
-import {GameTypeEnum,GameEnum} from "../../../../api-services/utils/Enum";
+import { GameService } from "../../../../api-services/services/GameService";
+import { SHOW_LOGIN } from "../../../../api-services/constant/actionType";
+import { GameTypeEnum, GameEnum } from "../../../../api-services/utils/Enum";
 import BtnJoinPNG from "../../../assets/images/btn-join.png";
 import BtnJoinHoverPNG from "../../../assets/images/btn-join-hover.png";
-import _633Lottery from "../../../assets/images/lottery/633-lotteryball.png";
-import _633Description from "../../../assets/images/lottery/633-lotterydescription.png";
 
 import i18n from "../../../utils/i18n";
 

@@ -15,10 +15,6 @@ import {
 import { GameTypeEnum } from "../../../api-services/utils/Enum";
 
 import i18n from "../../../utils/i18n";
-import ThirdSection from "./ThirdSection";
-import FourthSection from "./FourthSection";
-import TextBgPNG from "../../../assets/images/home/section/text-bg.png";
-import { Grid } from "@material-ui/core";
 
 import config from "../../../config/config";
 
@@ -44,52 +40,6 @@ const SectionContainer = styled.div`
 
   display: flex;
   justify-content: center;
-`;
-const FirstSection = styled.div`
-  width: 1280px;
-  margin: 0 auto;
-  min-height: 460px;
-  padding-top: 110px;
-  overflow: auto;
-`;
-const FirstSectionItemBg2 = styled.div`
-  background: url(${TextBgPNG}) no-repeat;
-  background-size: 283px 50px;
-  position: absolute;
-  bottom: 44px;
-  left: 13px;
-  height: 50px;
-  width: 0;
-  transition: width 300ms linear;
-`;
-const FirstSectionItemBg = styled(Grid)`
-  position: absolute;
-  bottom: 38px;
-  left: ${(props) => (i18n.language === "vi-VN" ? "0px" : "16px")};
-  height: 68px;
-  width: 283px;
-  padding-left: 30px;
-`;
-const FirstSectionItemLabel = styled(Grid)`
-  text-transform: uppercase;
-`;
-const FirstSectionItem = styled(Grid)`
-  background: url(${(props) => props.img}) no-repeat;
-  background-size: contain;
-  margin: 0 auto;
-  width: 320px;
-  height: 282px;
-  color: #fff;
-  font-size: ${(props) => (i18n.language === "vi-VN" ? "1.4em" : "1.6em")};
-  padding-top: 215px;
-  padding-left: 38px;
-  position: relative;
-  &:hover {
-    cursor: pointer;
-    ${FirstSectionItemBg2} {
-      width: 283px;
-    }
-  }
 `;
 
 class Home extends Component {
@@ -202,8 +152,8 @@ class Home extends Component {
       Common.closePreviousPopup();
       if (slotPageGameType.indexOf(gameType) >= 0) {
         if (
-          gameType == GameTypeEnum.SPORTS ||
-          gameType == GameTypeEnum.ESPORTS
+          gameType === GameTypeEnum.SPORTS ||
+          gameType === GameTypeEnum.ESPORTS
         ) {
           if (!this.props.token) {
             this.props.showLogin(true);

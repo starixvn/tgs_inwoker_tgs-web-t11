@@ -5,7 +5,7 @@ import { GameTypeEnum } from "../../../../api-services/utils/Enum";
 import Common from "../../../../utils/Common";
 import SlotGenerator from "../slot-generator";
 import Winners from "./winners";
-import moment from "moment";
+
 import {
   jiliSlot,
   rtSlot,
@@ -113,13 +113,6 @@ const SlotContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`;
-
-const JackpotGif = styled.img`
-  width: 455px;
-  position: absolute;
-  left: 370px;
-  top: 272px;
 `;
 
 const JackpotSection = ({ showLogin, token }) => {

@@ -27,7 +27,7 @@ const CustomStyledDialog = withStyles({
       paddingRight: "50px",
       boxShadow: "none",
     },
-  }
+  },
 })(Dialog);
 const Container = styled.div`
   width: 506px;
@@ -165,8 +165,17 @@ const CustomFormContainer = styled.div`
 `;
 const DialogSwitcher = (props) => {
   if (props.isCustom)
-    return <CustomStyledDialog open={props.open} onClose={props.onClose}>{props.children}</CustomStyledDialog>;
-  else return <StyledDialog open={props.open} onClose={props.onClose}>{props.children}</StyledDialog>;
+    return (
+      <CustomStyledDialog open={props.open} onClose={props.onClose}>
+        {props.children}
+      </CustomStyledDialog>
+    );
+  else
+    return (
+      <StyledDialog open={props.open} onClose={props.onClose}>
+        {props.children}
+      </StyledDialog>
+    );
 };
 const ContainerSwitcher = (props) => {
   if (props.isCustom)
@@ -217,8 +226,15 @@ class PopupAnnouncement extends Component {
 
   render() {
     return (
-      <DialogSwitcher isCustom={this.props.isCustom} open={this.props.open} onClose={this.props.onClose}>
-        <ContainerSwitcher isCustom={this.props.isCustom} onClose={this.props.onClose}>
+      <DialogSwitcher
+        isCustom={this.props.isCustom}
+        open={this.props.open}
+        onClose={this.props.onClose}
+      >
+        <ContainerSwitcher
+          isCustom={this.props.isCustom}
+          onClose={this.props.onClose}
+        >
           <div className="clear"></div>
           <TitleSwitcher isCustom={this.props.isCustom}>
             {this.props.header}
