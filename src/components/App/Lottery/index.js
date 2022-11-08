@@ -5,9 +5,6 @@ import styled from "styled-components";
 import { SHOW_LOGIN } from "../../../api-services/constant/actionType";
 import { GameTypeEnum } from "../../../api-services/utils/Enum";
 
-import _633Lottery from "../../../assets/images/lottery/633-lotteryball.png";
-import _633Description from "../../../assets/images/lottery/633-lotterydescription.png";
-
 import i18n from "../../../utils/i18n";
 import ScrollAnimation from "react-animate-on-scroll";
 import Common from "../../../utils/Common";
@@ -18,7 +15,8 @@ const Container = styled.div`
   min-height: 770px;
   padding: 70px 0px;
   position: relative;
-  background: url(${(props) => process.env.PUBLIC_URL}/assets/images/pcGamePage/lottery/background.jpg)
+  background: url(${(props) =>
+      process.env.PUBLIC_URL}/assets/images/pcGamePage/lottery/background.jpg)
     no-repeat center;
 `;
 const GirlImage = styled.div`
@@ -81,7 +79,7 @@ class Lottery extends Component {
     super(props);
 
     var lotteryList = props.game.homePageGameList.filter((item) => {
-      return item.type == GameTypeEnum.LOTTERY;
+      return item.type === GameTypeEnum.LOTTERY;
     });
 
     this.state = {
@@ -105,7 +103,7 @@ class Lottery extends Component {
       this.props.game.homePageGameList.length
     ) {
       var lotteryList = this.props.game.homePageGameList.filter((item) => {
-        return item.type == GameTypeEnum.LOTTERY;
+        return item.type === GameTypeEnum.LOTTERY;
       });
 
       this.setState({
@@ -151,7 +149,7 @@ class Lottery extends Component {
 
               .map((item, index) => {
                 return (
-                  <GameWrapper maintenance={item.status != 0}>
+                  <GameWrapper maintenance={item.status !== 0}>
                     <Maintenance>{i18n.t("transfer.maintenance")}</Maintenance>
                     <GirlImage
                       style={{ float: "right" }}

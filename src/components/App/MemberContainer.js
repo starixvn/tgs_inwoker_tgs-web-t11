@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import i18n from "../../utils/i18n";
 import Common from "../../utils/Common";
 import config from "../../config/config";
-import { Popover } from "@material-ui/core";
 import { SortedMenuList } from "../../utils/HeaderSorting";
 import CustomPopover from "../Share/custompopover";
 import { Textfit } from "react-textfit";

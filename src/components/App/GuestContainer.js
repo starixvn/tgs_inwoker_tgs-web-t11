@@ -49,12 +49,6 @@ const BtnLogin = styled(BtnLoginRegister)`
   background: #393939;
 `;
 
-const BtnSpliter = styled.div`
-  float: right;
-  margin-top: 8px;
-  color: ${({ theme }) => theme.pcHeaderText};
-`;
-
 const StyledDialog = withStyles({
   root: {
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",

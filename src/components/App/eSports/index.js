@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
-import { GameTypeEnum, GameEnum } from "../../../api-services/utils/Enum";
+import { GameTypeEnum } from "../../../api-services/utils/Enum";
 import { SHOW_LOGIN } from "../../../api-services/constant/actionType";
 import i18n from "../../../utils/i18n";
 
@@ -14,7 +14,8 @@ const Container = styled.div`
   min-height: 770px;
   padding: 70px 0px;
   position: relative;
-  background: url(${(props) => process.env.PUBLIC_URL}/assets/images/pcGamePage/esports/background.jpg)
+  background: url(${(props) =>
+      process.env.PUBLIC_URL}/assets/images/pcGamePage/esports/background.jpg)
     no-repeat center;
 `;
 const GirlImage = styled.div`
