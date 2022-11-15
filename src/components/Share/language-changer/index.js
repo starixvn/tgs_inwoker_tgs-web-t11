@@ -66,6 +66,7 @@ const LanguageChanger = ({ language, changeLanguage }) => {
                 AppHistory.replace("/" + data.culturecode);
                 changeLanguage(data.culturecode);
                 setAnchorEl(null);
+                window.location.reload();
               }}
             >
               {
