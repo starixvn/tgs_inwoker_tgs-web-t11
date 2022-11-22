@@ -117,6 +117,8 @@ const featureList = {
     UseAccentColor: true,
     Wap_ShowProfileTransfer: true,
     HaveVIPFeature: true,
+    DepositCustomPaymentNames: [
+    ], 
   },
 };
 export default featureList;
