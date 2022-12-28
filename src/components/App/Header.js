@@ -42,6 +42,7 @@ import ErrorSwitcher from "../../utils/ErrorSwitcher";
 import { AppHistory } from "../../history/History";
 import { SortedMenuList } from "../../utils/HeaderSorting";
 import OnlineUserDisplayer from "../Share/online-user-displayer";
+import { GameService } from "../../api-services/services/GameService";
 
 const moment = require("moment");
 
@@ -904,7 +905,20 @@ class Header extends Component {
   };
 
   consolidateJoinGame = (game, item) => {
-    if (
+    if (game.type === GameTypeEnum.COCKFIGHT) {
+      if (item.include.indexOf("SM01") >= 0) {
+        this.popup = window.open("", "Cockfight");
+        GameService.GetCockfight()
+          .then((e) => {
+            this.popup.document.write(e.data);
+            this.popup.document.close();
+            this.popup.focus();
+          })
+          .catch((e) => {
+            this.popup.close();
+          });
+      }
+    } else if (
       game.type === GameTypeEnum.LOTTERYLOBBY ||
       game.type === GameTypeEnum.LOBBY
     ) {
@@ -920,10 +934,7 @@ class Header extends Component {
   };
 
   filterGameList = (item) => {
-    if (
-      item.include &&
-      item.include !== undefined
-    ) {
+    if (item.include && item.include !== undefined) {
       this.props.game.homePageGameList.map((game) => {
         if (item.include.indexOf(game.game_platform_name) >= 0) {
           game.type = item.gameType[0];
@@ -1038,16 +1049,15 @@ class Header extends Component {
                 }`}
               >
                 {SortedMenuList.map((item, index) => {
-                  var list = this.filterGameList(item)
-                    .sort((a, b) => {
-                      if (config.features.LiveGame_Sorting_SKY) {
-                        var sortDGFirst = ["DG"];
-                        return (
-                          sortDGFirst.indexOf(b.abbreviation) -
-                          sortDGFirst.indexOf(a.abbreviation)
-                        );
-                      } else return b - a;
-                    });
+                  var list = this.filterGameList(item).sort((a, b) => {
+                    if (config.features.LiveGame_Sorting_SKY) {
+                      var sortDGFirst = ["DG"];
+                      return (
+                        sortDGFirst.indexOf(b.abbreviation) -
+                        sortDGFirst.indexOf(a.abbreviation)
+                      );
+                    } else return b - a;
+                  });
                   if (list.length > 0) {
                     return (
                       <RightMenuLI
