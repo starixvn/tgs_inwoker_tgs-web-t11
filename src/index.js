@@ -197,7 +197,9 @@ const muiTheme = createMuiTheme({
   },
 });
 const AppWrapper = () => {
-  const classes = useStyles();
+  const classes = useStyles(); 
+  const languageDetector = i18n.language || localStorage.getItem("i18nextLng") || config.defaultLanguage;
+
 
   return (
     <Provider store={store}>
@@ -279,7 +281,7 @@ const AppWrapper = () => {
                     path={Common.baseRouteUrl + "/"}
                     render={(props) => (isMobileOnly ? <Wap /> : <Web />)}
                   />
-                  <Redirect to={`/${i18n.language}`} />
+                  <Redirect to={`/${languageDetector}`} />
                 </Switch>
               </Router>
             </SnackbarProvider>
