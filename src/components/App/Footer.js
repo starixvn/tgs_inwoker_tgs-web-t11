@@ -72,20 +72,35 @@ const ThirdPartyLogoHolder = styled.div`
   justify-content: center;
   width: 150px;
 `;
-const settings = {
-  className: "footer",
-  dots: false,
-  arrows: false,
-  slidesToShow: 6,
-  slidesToScroll: 6,
-  autoplay: true,
-  speed: 500,
-  autoplaySpeed: 2000,
-  cssEase: "linear",
+const CustomSlider = styled(Slider)`
+  ${({ maxGame }) => {
+    return (
+      maxGame <= 4 &&
+      ` 
+      .slick-track {
+         display: flex;
+         justify-content: center;
+       }
+  `
+    );
+  }}
+`;
 
-  infinite: true,
-};
 function Footer(props) {
+  var maxGame = props.game.providerList.length;
+  const settings = {
+    className: "footer",
+    dots: false,
+    arrows: false,
+    slidesToShow: maxGame <= 4 ? maxGame : 6,
+    slidesToScroll: maxGame <= 4 ? maxGame : 6,
+    autoplay: true,
+    speed: 500,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+  
+    infinite: true,
+  };
   return (
     <Container hide={props.hide}>
       {/*     
@@ -181,7 +196,7 @@ function Footer(props) {
 
       <MiddleContainer>
         <MiddleInnerWrap>
-          <Slider {...settings}>
+          <CustomSlider {...settings} maxGame={maxGame}>
             {(() => {
               return props.game.providerList
                 .filter(
@@ -209,7 +224,7 @@ function Footer(props) {
                   );
                 });
             })()}
-          </Slider>
+          </CustomSlider>
           {/* <ProductUL>
            
             <ProductLI>
