@@ -119,6 +119,7 @@ const featureList = {
     HaveVIPFeature: true,
     DepositCustomPaymentNames: [
     ], 
+    Withdrawal_WalletTransfer: false,
   },
 };
 export default featureList;
