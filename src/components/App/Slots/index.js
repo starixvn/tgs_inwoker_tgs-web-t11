@@ -23,12 +23,10 @@ import SlotFishGamePNG from "../../../assets/images/slot-fishgame.png";
 import SlotFishGameActivePNG from "../../../assets/images/slot-fishgame-active.png";
 import SlotHistoryGamePNG from "../../../assets/images/slot-history.png";
 import SlotHistoryGameActivePNG from "../../../assets/images/slot-history-active.png";
-import SlotSearchPNG from "../../../assets/images/slot-search.png";
 
 import SlotBookmark1PNG from "../../../assets/images/slot-bookmark-1.png";
 import SlotBookmark2PNG from "../../../assets/images/slot-bookmark-2.png";
 
-import SlotMoreGamePNG from "../../../assets/images/slot-moregame.png";
 import Loading from "../../../components/App/Loading";
 
 import i18n from "../../../utils/i18n";
@@ -41,13 +39,12 @@ const Container = styled.div`
   min-height: 770px;
   padding: 70px 0px;
   position: relative;
-  background: url(${process.env.PUBLIC_URL + `/assets/images/pcGamePage/slots`}${(
-        props
-      ) => {
-        return props.type === GameTypeEnum.FISH
-          ? "/fishbg-black.jpg"
-          : `/background-` + Common.getCDNLanguagePrefix() + `.jpg`;
-      }})
+  background: url(${process.env.PUBLIC_URL +
+    `/assets/images/pcGamePage/slots`}${(props) => {
+      return props.type === GameTypeEnum.FISH
+        ? "/fishbg-black.jpg"
+        : `/background-` + Common.getCDNLanguagePrefix() + `.jpg`;
+    }})
     no-repeat center top;
   background-color: #171b36;
 `;
