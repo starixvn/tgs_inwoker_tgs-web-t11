@@ -120,6 +120,7 @@ const featureList = {
     DepositCustomPaymentNames: [
     ], 
     Withdrawal_WalletTransfer: false,
+    Deposit_ManualDepositPassPhone: false,
   },
 };
 export default featureList;
