@@ -758,7 +758,7 @@ function Register(props) {
                 variant="outlined"
                 inputProps={{ disabled: prefill }}
               />
-              {config.features.HaveAffiliateFeature && (
+              {props.general.haveAffiliate && (
                 <CustomInvitationSelect
                   disabled={prefill}
                   value={promoteType}
