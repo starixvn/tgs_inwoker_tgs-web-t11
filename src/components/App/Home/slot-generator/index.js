@@ -167,7 +167,7 @@ const SlotGenerator = React.memo(
       if (commonprops.token) {
         Common.closePreviousPopup();
 
-        AppHistory.push(`/${i18n.language}/${type}/play/${gpcode}/${gpid}`);
+        AppHistory.push(`/${type}/play/${gpcode}/${gpid}`);
       } else {
         commonprops.showLogin(true);
       }

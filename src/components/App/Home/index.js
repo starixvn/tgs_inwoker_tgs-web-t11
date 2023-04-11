@@ -158,12 +158,10 @@ class Home extends Component {
           if (!this.props.token) {
             this.props.showLogin(true);
           } else {
-            this.props.history.push(
-              `/${i18n.language}/sports/play/${gameCode}/${gameType}`
-            );
+            this.props.history.push(`/sports/play/${gameCode}/${gameType}`);
           }
         } else {
-          this.props.history.push(`/${i18n.language}/${path}/${gameCode}`);
+          this.props.history.push(`/${path}/${gameCode}`);
         }
       } else {
         // Common.PopupCenter(url, gameCode, 1280, 720);
