@@ -110,12 +110,7 @@ class ESports extends Component {
       // this.props.performBalanceRefresh();
       Common.closePreviousPopup();
       this.props.history.push(
-        "/" +
-          i18n.language +
-          "/sports/play/" +
-          params +
-          "/" +
-          GameTypeEnum.ESPORTS
+        "/sports/play/" + params + "/" + GameTypeEnum.ESPORTS
       );
     }
   };
