@@ -16,7 +16,8 @@ const Container = styled.div`
   min-height: 770px;
   padding: 70px 0px;
   position: relative;
-  background: url(${(props) => process.env.PUBLIC_URL}/assets/images/pcGamePage/cockfight/background.jpg)
+  background: url(${(props) =>
+      process.env.PUBLIC_URL}/assets/images/pcGamePage/cockfight/background.jpg)
     no-repeat center;
 `;
 const GirlImage = styled.div`
@@ -127,14 +128,7 @@ class Cockfight extends Component {
             this.popup.close();
           });
       } else {
-        AppHistory.push(
-          "/" +
-            i18n.language +
-            "/sports/play/" +
-            params +
-            "/" +
-            GameTypeEnum.SPORTS
-        );
+        AppHistory.push("/sports/play/" + params + "/" + GameTypeEnum.SPORTS);
       }
     } else {
       this.props.showLogin(true);
