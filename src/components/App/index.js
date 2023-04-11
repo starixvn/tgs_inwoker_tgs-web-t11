@@ -587,7 +587,7 @@ class App extends Component {
                       )}
                     />
 
-                    <Redirect to={"/" + languageDetector} />
+                    <Redirect to={"/"} />
                   </Switch>
                 </Main>
 
