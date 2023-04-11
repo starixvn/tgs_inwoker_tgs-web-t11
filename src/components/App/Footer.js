@@ -98,7 +98,7 @@ function Footer(props) {
     speed: 500,
     autoplaySpeed: 2000,
     cssEase: "linear",
-  
+
     infinite: true,
   };
   return (
@@ -125,7 +125,7 @@ function Footer(props) {
           <TopCenterContainer>
             <FooterATag
               onClick={() => {
-                AppHistory.push("/" + i18n.language + "/download");
+                AppHistory.push("/"  "/download");
                 window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
               }}
             >
