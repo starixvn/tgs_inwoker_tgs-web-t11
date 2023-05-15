@@ -42,7 +42,7 @@ const ItemContainer = styled.div`
 `;
 const Maintenance = styled.div`
   width: 100%;
-  height: 100%;
+  height: 200px;
   z-index: 1;
   position: absolute;
   align-items: center;
@@ -136,7 +136,7 @@ class ESports extends Component {
                       style={{ float: "right" }}
                       img={
                         process.env.PUBLIC_URL +
-                        "/assets/images/pcGamePage/sports/" +
+                        "/assets/images/pcGamePage/esports/" +
                         item.abbreviation.toLowerCase() +
                         ".png"
                       }
@@ -166,7 +166,7 @@ class ESports extends Component {
                       style={{ float: "right" }}
                       img={
                         process.env.PUBLIC_URL +
-                        "/assets/images/pcGamePage/sports/" +
+                        "/assets/images/pcGamePage/esports/" +
                         item.abbreviation.toLowerCase() +
                         ".png"
                       }
