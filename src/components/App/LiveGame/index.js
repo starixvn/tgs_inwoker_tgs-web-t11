@@ -43,7 +43,7 @@ const ItemContainer = styled.div`
 `;
 const Maintenance = styled.div`
   width: 100%;
-  height: 100%;
+  height: 200px;
   z-index: 1;
   position: absolute;
   align-items: center;
@@ -56,7 +56,7 @@ const Maintenance = styled.div`
   user-select: none;
   max-height: 155px;
   max-width: 265px;
-  bottom: 0;
+  top: 0;
   cursor: not-allowed;
 `;
 
