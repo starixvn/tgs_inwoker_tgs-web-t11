@@ -69,21 +69,14 @@ const GameTabContainer = styled.div`
 
 const GameTab = styled.div`
   background: url(${(props) =>
-      process.env.PUBLIC_URL +
-      `/assets/images/pcGamePage/slots/` +
-      props.img +
-      (props.active === true ? `-white` : `-black`) +
-      `.png`})
+      process.env.PUBLIC_URL + `/assets/images/provider/` + props.img + `.png`})
     no-repeat;
   background-position: center;
   background-size: contain;
-  height: 60px;
-  width: 100px;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateY(-50%) translateX(-50%);
+  height: 100%;
+  width: 100%;
+  background-size: 75%;
+  filter: grayscale(100%);
 `;
 
 const DisabledOverlay = styled.div`
@@ -107,53 +100,61 @@ const GameTabButton = styled.div`
   height: 76px;
   border-radius: 10px;
   background-color: #eeeeee;
+  margin-left: 5px;
   margin-top: 5px;
   position: relative;
   float: left;
 
   &:hover {
     cursor: pointer;
-    background-color: #1a1a1a;
+    background-image: linear-gradient(
+      to top,
+      ${({ theme }) => theme.primaryGradient},
+      ${({ theme }) => theme.primary}
+    );
+
+    ${GameTab} {
+      filter: none;
+    }
   }
-  &:hover ${GameTab} {
-    background: url(${(props) =>
-        process.env.PUBLIC_URL +
-        `/assets/images/pcGamePage/slots/` +
-        props.img +
-        `-white.png`})
-      no-repeat;
-    background-position: center;
-    background-size: 100%;
-    height: 60px;
-    width: 100px;
-  }
-  ${(props) =>
-    props.active
-      ? `  background-image: linear-gradient(to top, ` +
-        props.theme.primaryGradient +
-        `, ` +
-        props.theme.primary +
-        `);`
-      : `  background-color: #EEEEEE;`};
+
+  ${({ active, theme }) => {
+    return active
+      ? `
+      background-image: linear-gradient(
+        to top,
+        ${theme.primaryGradient},
+        ${theme.primary}
+      );
+      ${GameTab} {
+        filter: none;
+      }
+    
+    `
+      : ``;
+  }}
 
   ${({ maintenance }) => {
     return maintenance
       ? `
-              pointer-events: none !important;
-            ${DisabledOverlay}{
-              display: flex; 
-              pointer-events: none !important;
-            }
-        
-            ${GameTab}{
-              pointer-events: none;
-            
-            }
-            `
+          pointer-events: none !important;
+        ${DisabledOverlay}{
+          display: flex; 
+          pointer-events: none !important;
+         
+          cursor: not-allowed;
+        }
+    
+        ${GameTab}{
+          pointer-events: none;
+          
+          filter: none;
+         
+        }
+        `
       : ``;
   }}
 `;
-
 const GameTabAll = styled(GameTabButton)`
   ${(props) =>
     props.active
