@@ -222,7 +222,7 @@ const RightMenuUL = styled.ul`
 `;
 
 const RightMenuTextSpan = styled.span`
-  font-size: ${(props) => (i18n.language === "vi-VN" ? "15px" : "16px")};
+  font-size: ${(props) => (i18n.language === "vi-VN" ? "15px" : i18n.language === "ta-IN" ? "12px" : "16px")};
 
   margin: 0 auto;
   display: block;
