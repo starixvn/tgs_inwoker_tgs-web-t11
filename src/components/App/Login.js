@@ -108,7 +108,7 @@ const LinkStyle = styled.a`
   margin-top: 5px;
   text-decoration: underline;
 
-  font-size: 15px;
+  font-size: ${(props)=> i18n.language === "ta-IN" ? "12px" : "15px"};
 
   color: ${({ theme }) => theme.secondary};
 
@@ -129,7 +129,7 @@ const EmptyBlock = styled.div`
 const Description = styled.p`
   text-align: center;
 
-  font-size: 14px;
+  font-size: ${(props)=> i18n.language === "ta-IN" ? "12px" : "14px"};
 
   line-height: 1.43;
 
