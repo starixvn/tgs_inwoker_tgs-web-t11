@@ -131,7 +131,7 @@ const InboxIconImg = styled.img`
 `;
 const InboxCountLabel = styled.span`
   color: ${({ theme }) => theme.accent};
-  display: inline-block;
+  display: none;
 `;
 const WelcomeContainer = styled(BalanceContainer)`
   color: ${({ theme }) => theme.pcHeaderText};
