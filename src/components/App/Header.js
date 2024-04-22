@@ -614,7 +614,7 @@ class Header extends Component {
     ) {
       return;
     }
-    this.props.history.push("/account/inbox");
+    this.props.history.push("/account/memo");
   };
   handleProfileClick = () => {
     if (
