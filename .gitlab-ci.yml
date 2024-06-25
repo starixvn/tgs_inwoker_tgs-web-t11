@@ -4,7 +4,7 @@ include:
     file: '/templates/.lobby-deployment.yaml'
 
 variables:
-  ImageName: pgtgs/lobby-t15
+  ImageName: pgtgs/lobby-t11
   
 build:
   extends: .build
