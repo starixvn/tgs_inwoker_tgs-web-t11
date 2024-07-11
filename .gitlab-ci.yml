@@ -20,6 +20,6 @@ deploy-staging:
     components: "staging_t11"
 
 deploy-prod:
-  extends: .deploy-prod
+  extends: .deploy-k8s-prod
   variables:
     components: "prod_t11"
